@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29025.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SemVerAnalyzer", "source\SemVerAnalyzer\SemVerAnalyzer.csproj", "{33F72923-60DE-45B5-81EA-C87312998BCB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SemVerAnalyzer.Tests", "tests\SemVerAnalyzer.Tests\SemVerAnalyzer.Tests.csproj", "{72B7B1AA-6B9B-4394-BAEF-A524171FE80E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test References", "Test References", "{359E7577-ACAF-4C08-AA80-CD137FD40C08}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Local", "tests\TestReferences\Local\Local.csproj", "{2B0EBF89-69B3-45B7-87C5-AB0DECAF2600}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Major", "tests\TestReferences\Major\Major.csproj", "{B79D3057-42DF-4DE4-A599-55944A1FAEC6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Minor", "tests\TestReferences\Minor\Minor.csproj", "{F085F9BC-7B9D-4452-82D9-AA8AD20D60EC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Patch", "tests\TestReferences\Patch\Patch.csproj", "{71EDB951-69B6-4274-B5F2-250C57690A13}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{33F72923-60DE-45B5-81EA-C87312998BCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33F72923-60DE-45B5-81EA-C87312998BCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33F72923-60DE-45B5-81EA-C87312998BCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33F72923-60DE-45B5-81EA-C87312998BCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72B7B1AA-6B9B-4394-BAEF-A524171FE80E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72B7B1AA-6B9B-4394-BAEF-A524171FE80E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72B7B1AA-6B9B-4394-BAEF-A524171FE80E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72B7B1AA-6B9B-4394-BAEF-A524171FE80E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B0EBF89-69B3-45B7-87C5-AB0DECAF2600}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B0EBF89-69B3-45B7-87C5-AB0DECAF2600}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B0EBF89-69B3-45B7-87C5-AB0DECAF2600}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B0EBF89-69B3-45B7-87C5-AB0DECAF2600}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B79D3057-42DF-4DE4-A599-55944A1FAEC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B79D3057-42DF-4DE4-A599-55944A1FAEC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B79D3057-42DF-4DE4-A599-55944A1FAEC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B79D3057-42DF-4DE4-A599-55944A1FAEC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F085F9BC-7B9D-4452-82D9-AA8AD20D60EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F085F9BC-7B9D-4452-82D9-AA8AD20D60EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F085F9BC-7B9D-4452-82D9-AA8AD20D60EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F085F9BC-7B9D-4452-82D9-AA8AD20D60EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71EDB951-69B6-4274-B5F2-250C57690A13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71EDB951-69B6-4274-B5F2-250C57690A13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71EDB951-69B6-4274-B5F2-250C57690A13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71EDB951-69B6-4274-B5F2-250C57690A13}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2B0EBF89-69B3-45B7-87C5-AB0DECAF2600} = {359E7577-ACAF-4C08-AA80-CD137FD40C08}
+		{B79D3057-42DF-4DE4-A599-55944A1FAEC6} = {359E7577-ACAF-4C08-AA80-CD137FD40C08}
+		{F085F9BC-7B9D-4452-82D9-AA8AD20D60EC} = {359E7577-ACAF-4C08-AA80-CD137FD40C08}
+		{71EDB951-69B6-4274-B5F2-250C57690A13} = {359E7577-ACAF-4C08-AA80-CD137FD40C08}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DE48673A-DB38-4E1D-9783-C8DBCFB06966}
+	EndGlobalSection
+EndGlobal

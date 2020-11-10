@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>TestData</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Source\ClassToAdd.cs" Link="ClassToAdd.cs" />
+    <Compile Include="..\Source\InternalTypeToAdd.cs" Link="InternalTypeToAdd.cs" />
+    <Compile Include="..\Source\StructToAdd.cs" Link="StructToAdd.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NodaTime" Version="2.1.1" />
+  </ItemGroup>
+
+</Project>

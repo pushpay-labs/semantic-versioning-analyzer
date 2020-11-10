@@ -1,0 +1,10 @@
+{
+	"settings": {
+		"disabledRules": [
+			"placeholder"
+		]
+	},
+	"nuget": {
+		"repositoryUrl": "https://api.nuget.org/v3/index.json"
+	}
+}

@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+
+    <LangVersion>latest</LangVersion>
+
+    <RootNamespace>Pushpay.SemVerAnalyzer.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Equestria.TestHelpers" Version="1.4.1" />
+    <PackageReference Include="JUnitTestLogger" Version="1.1.0" />
+    <PackageReference Include="JunitXml.TestLogger" Version="2.1.32" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\source\SemVerAnalyzer\SemVerAnalyzer.csproj" />
+    <ProjectReference Include="..\TestReferences\Local\Local.csproj" />
+    <ProjectReference Include="..\TestReferences\Major\Major.csproj" />
+    <ProjectReference Include="..\TestReferences\Minor\Minor.csproj" />
+    <ProjectReference Include="..\TestReferences\Patch\Patch.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="testsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

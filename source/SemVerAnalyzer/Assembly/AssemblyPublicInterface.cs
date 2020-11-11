@@ -17,9 +17,6 @@ namespace Pushpay.SemVerAnalyzer.Assembly
 
 		public static AssemblyPublicInterface Load(byte[] assemblyBytes)
 		{
-			// Create a default assembly resolver and type resolver and pass it to Load().
-			// If it's a .NET Core assembly, you'll need to disable GAC loading and add
-			// .NET Core reference assembly search paths.
 			var modCtx = ModuleDef.CreateModuleContext();
 			var module = ModuleDefMD.Load(assemblyBytes, modCtx);
 
@@ -41,6 +38,7 @@ namespace Pushpay.SemVerAnalyzer.Assembly
 			var assemblyReferenceCount = module.TablesStream.AssemblyRefTable.Rows;
 			var references = new List<AssemblyReference>();
 			// apparently the table is 1-indexed
+			// https://github.com/0xd4d/dnlib/blob/master/src/DotNet/ModuleDefMD.cs#L588
 			for (uint i = 1; i <= assemblyReferenceCount; i++) {
 				var asmRef = module.ResolveAssemblyRef(i);
 				references.Add(new AssemblyReference {

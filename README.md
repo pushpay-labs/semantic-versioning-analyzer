@@ -6,7 +6,13 @@ By default, it compares the local assembly to a published assembly of the same n
 
 ## Usage
 
-The tool is a console app.  The command line options are as follows:
+This is published as a dotnet tool.  To install:
+
+```sh
+dotnet tool install SemVerAnalyzer --global
+```
+
+The command line options are as follows:
 
 ```
   -a, --assembly      Required. The built assembly to test.
@@ -16,6 +22,12 @@ The tool is a console app.  The command line options are as follows:
 
   --help              Display this help screen.
   --version           Display version information.
+```
+
+The dotnet command for the tool is `analyze-semver`. For example,
+
+```sh
+dotnet analyze-semver -a path/to/MyAssembly.dll -o results.txt
 ```
 
 ## Configuration

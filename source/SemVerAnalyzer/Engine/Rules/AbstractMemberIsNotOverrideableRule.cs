@@ -4,7 +4,7 @@ using Pushpay.SemVerAnalyzer.Assembly;
 
 namespace Pushpay.SemVerAnalyzer.Engine.Rules
 {
-	abstract class AbstractMemberIsNotOverrideableRule<T> : IVersionAnalysisRule<T>
+	internal abstract class AbstractMemberIsNotOverrideableRule<T> : IVersionAnalysisRule<T>
 		where T : IMemberDef
 	{
 		public VersionBumpType Bump => VersionBumpType.Major;
@@ -27,9 +27,9 @@ namespace Pushpay.SemVerAnalyzer.Engine.Rules
 		}
 	}
 
-	class AbstractMethodIsNotOverrideableRule : AbstractMemberIsNotOverrideableRule<MethodDef> { }
+	internal class AbstractMethodIsNotOverrideableRule : AbstractMemberIsNotOverrideableRule<MethodDef> { }
 
-	class AbstractPropertyIsNotOverrideableRule : AbstractMemberIsNotOverrideableRule<PropertyDef> { }
+	internal class AbstractPropertyIsNotOverrideableRule : AbstractMemberIsNotOverrideableRule<PropertyDef> { }
 
-	class AbstractEventIsNotOverrideableRule : AbstractMemberIsNotOverrideableRule<EventDef> { }
+	internal class AbstractEventIsNotOverrideableRule : AbstractMemberIsNotOverrideableRule<EventDef> { }
 }

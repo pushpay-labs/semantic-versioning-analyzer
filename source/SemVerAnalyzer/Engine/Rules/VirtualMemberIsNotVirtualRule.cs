@@ -4,7 +4,7 @@ using Pushpay.SemVerAnalyzer.Assembly;
 
 namespace Pushpay.SemVerAnalyzer.Engine.Rules
 {
-	abstract class VirtualMemberIsNotVirtualRule<T> : IVersionAnalysisRule<T>
+	internal abstract class VirtualMemberIsNotVirtualRule<T> : IVersionAnalysisRule<T>
 		where T : IMemberDef
 	{
 		public VersionBumpType Bump => VersionBumpType.Major;
@@ -27,9 +27,9 @@ namespace Pushpay.SemVerAnalyzer.Engine.Rules
 		}
 	}
 
-	class VirtualMethodIsNotVirtualRule : VirtualMemberIsNotVirtualRule<MethodDef> { }
+	internal class VirtualMethodIsNotVirtualRule : VirtualMemberIsNotVirtualRule<MethodDef> { }
 
-	class VirtualPropertyIsNotVirtualRule : VirtualMemberIsNotVirtualRule<PropertyDef> { }
+	internal class VirtualPropertyIsNotVirtualRule : VirtualMemberIsNotVirtualRule<PropertyDef> { }
 
-	class VirtualEventIsNotVirtualRule : VirtualMemberIsNotVirtualRule<EventDef> { }
+	internal class VirtualEventIsNotVirtualRule : VirtualMemberIsNotVirtualRule<EventDef> { }
 }

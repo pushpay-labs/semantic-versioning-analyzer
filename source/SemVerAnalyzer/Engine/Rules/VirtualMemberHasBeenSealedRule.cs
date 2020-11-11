@@ -4,7 +4,7 @@ using Pushpay.SemVerAnalyzer.Assembly;
 
 namespace Pushpay.SemVerAnalyzer.Engine.Rules
 {
-	abstract class VirtualMemberHasBeenSealedRule<T> : IVersionAnalysisRule<T>
+	internal abstract class VirtualMemberHasBeenSealedRule<T> : IVersionAnalysisRule<T>
 		where T : IMemberDef
 	{
 		public VersionBumpType Bump => VersionBumpType.Major;
@@ -19,7 +19,7 @@ namespace Pushpay.SemVerAnalyzer.Engine.Rules
 			var lMethod = local.GetUnderlyingMethodInfo();
 
 			return oMethod.IsVirtual && !oMethod.IsFinal &&
-			       lMethod.IsVirtual && lMethod.IsFinal;
+				   lMethod.IsVirtual && lMethod.IsFinal;
 		}
 
 		public string GetMessage(T info)
@@ -28,9 +28,9 @@ namespace Pushpay.SemVerAnalyzer.Engine.Rules
 		}
 	}
 
-	class VirtualMethodHasBeenSealedRule : VirtualMemberHasBeenSealedRule<MethodDef> { }
+	internal class VirtualMethodHasBeenSealedRule : VirtualMemberHasBeenSealedRule<MethodDef> { }
 
-	class VirtualPropertyHasBeenSealedRule : VirtualMemberHasBeenSealedRule<PropertyDef> { }
+	internal class VirtualPropertyHasBeenSealedRule : VirtualMemberHasBeenSealedRule<PropertyDef> { }
 
-	class VirtualEventHasBeenSealedRule : VirtualMemberHasBeenSealedRule<EventDef> { }
+	internal class VirtualEventHasBeenSealedRule : VirtualMemberHasBeenSealedRule<EventDef> { }
 }

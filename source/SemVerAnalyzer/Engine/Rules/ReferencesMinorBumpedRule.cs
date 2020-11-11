@@ -2,7 +2,7 @@ using Pushpay.SemVerAnalyzer.Assembly;
 
 namespace Pushpay.SemVerAnalyzer.Engine.Rules
 {
-	class ReferencesMinorBumpedRule : IVersionAnalysisRule<AssemblyReference>
+	internal class ReferencesMinorBumpedRule : IVersionAnalysisRule<AssemblyReference>
 	{
 		public VersionBumpType Bump => VersionBumpType.Minor;
 

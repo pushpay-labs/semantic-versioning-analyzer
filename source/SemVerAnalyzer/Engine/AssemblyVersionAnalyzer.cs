@@ -8,15 +8,15 @@ using Pushpay.SemVerAnalyzer.Assembly;
 
 namespace Pushpay.SemVerAnalyzer.Engine
 {
-	class AssemblyVersionAnalyzer : IAssemblyVersionAnalyzer
+	internal class AssemblyVersionAnalyzer : IAssemblyVersionAnalyzer
 	{
 		readonly IEnumerable<IVersionRuleRunner> _ruleRunners;
 		readonly IEnumerable<IVersionAnalysisRule<TypeDef>> _typeRules;
 		readonly IEnumerable<IVersionAnalysisRule<AssemblyReference>> _assemblyRules;
 
 		public AssemblyVersionAnalyzer(IEnumerable<IVersionRuleRunner> ruleRunners,
-		                               IEnumerable<IVersionAnalysisRule<TypeDef>> typeRules,
-		                               IEnumerable<IVersionAnalysisRule<AssemblyReference>> assemblyRules)
+									   IEnumerable<IVersionAnalysisRule<TypeDef>> typeRules,
+									   IEnumerable<IVersionAnalysisRule<AssemblyReference>> assemblyRules)
 		{
 			_ruleRunners = ruleRunners;
 			_typeRules = typeRules;
@@ -24,7 +24,7 @@ namespace Pushpay.SemVerAnalyzer.Engine
 		}
 
 		public VersionAnalysisResult AnalyzeVersions(AssemblyPublicInterface localPublicInterface,
-		                                                    AssemblyPublicInterface onlinePublicInterface)
+															AssemblyPublicInterface onlinePublicInterface)
 		{
 			var result = new VersionAnalysisResult();
 
@@ -81,9 +81,9 @@ namespace Pushpay.SemVerAnalyzer.Engine
 			var overallBump = VersionBumpType.None;
 
 			var references = online.References.FullOuterJoin(local.References,
-			                                                 o => o.Name,
-			                                                 l => l.Name,
-			                                                 (o, l) => new {Online = o, Local = l});
+															 o => o.Name,
+															 l => l.Name,
+															 (o, l) => new {Online = o, Local = l});
 			foreach (var reference in references) {
 				var changes = _assemblyRules.Where(r => r.Applies(reference.Online, reference.Local))
 					.Select(r => new Change {
@@ -99,9 +99,9 @@ namespace Pushpay.SemVerAnalyzer.Engine
 			}
 
 			var types = online.Types.FullOuterJoin(local.Types,
-			                                       o => o.FullName,
-			                                       l => l.FullName,
-			                                       (o, l) => new { Online = o, Local = l });
+												   o => o.FullName,
+												   l => l.FullName,
+												   (o, l) => new { Online = o, Local = l });
 			foreach (var type in types) {
 				var changes = _typeRules.Where(r => r.Applies(type.Online, type.Local))
 					.Select(r => new Change {

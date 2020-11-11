@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Pushpay.SemVerAnalyzer.Nuget
 {
-	class NugetClient : INugetClient
+	internal class NugetClient : INugetClient
 	{
 		readonly NugetConfiguration _config;
 

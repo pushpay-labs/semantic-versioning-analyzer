@@ -4,7 +4,7 @@ using Pushpay.SemVerAnalyzer.Assembly;
 
 namespace Pushpay.SemVerAnalyzer.Engine.Rules
 {
-	class PublicPropertySetterNotPublicRule : IVersionAnalysisRule<PropertyDef>
+	internal class PublicPropertySetterNotPublicRule : IVersionAnalysisRule<PropertyDef>
 	{
 		public VersionBumpType Bump => VersionBumpType.Major;
 
@@ -15,7 +15,7 @@ namespace Pushpay.SemVerAnalyzer.Engine.Rules
 			}
 
 			return online.SetMethod != null && online.SetMethod.IsPublic &&
-			       local.SetMethod != null && !local.SetMethod.IsPublic;
+				   local.SetMethod != null && !local.SetMethod.IsPublic;
 		}
 
 		public string GetMessage(PropertyDef info)

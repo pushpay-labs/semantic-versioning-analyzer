@@ -4,7 +4,7 @@ using dnlib.DotNet;
 
 namespace Pushpay.SemVerAnalyzer.Engine.Rules
 {
-	class EnumMemberRemovedRule : IVersionAnalysisRule<TypeDef>
+	internal class EnumMemberRemovedRule : IVersionAnalysisRule<TypeDef>
 	{
 		public VersionBumpType Bump => VersionBumpType.Major;
 

@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Pushpay.SemVerAnalyzer
 {
-	class Program
+	internal class Program
 	{
 		static IContainer container;
 

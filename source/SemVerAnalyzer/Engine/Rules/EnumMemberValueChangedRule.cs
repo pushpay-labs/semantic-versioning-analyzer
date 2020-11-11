@@ -4,7 +4,7 @@ using dnlib.DotNet;
 
 namespace Pushpay.SemVerAnalyzer.Engine.Rules
 {
-	class EnumMemberValueChangedRule : IVersionAnalysisRule<TypeDef>
+	internal class EnumMemberValueChangedRule : IVersionAnalysisRule<TypeDef>
 	{
 		public VersionBumpType Bump => VersionBumpType.Major;
 
@@ -28,9 +28,9 @@ namespace Pushpay.SemVerAnalyzer.Engine.Rules
 				.ToList();
 
 			var enumerable = onlineValues.Join(localValues,
-			                                   o => o.Name,
-			                                   l => l.Name,
-			                                   (o, l) => new {OnlineValue = o.Value, LocalValue = l.Value});
+											   o => o.Name,
+											   l => l.Name,
+											   (o, l) => new {OnlineValue = o.Value, LocalValue = l.Value});
 			return enumerable
 				.Any(n => n.OnlineValue != n.LocalValue);
 		}

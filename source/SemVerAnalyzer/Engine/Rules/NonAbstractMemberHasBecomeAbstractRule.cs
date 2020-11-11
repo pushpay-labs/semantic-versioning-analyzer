@@ -4,7 +4,7 @@ using Pushpay.SemVerAnalyzer.Assembly;
 
 namespace Pushpay.SemVerAnalyzer.Engine.Rules
 {
-	abstract class NonAbstractMemberHasBecomeAbstractRule<T> : IVersionAnalysisRule<T>
+	internal abstract class NonAbstractMemberHasBecomeAbstractRule<T> : IVersionAnalysisRule<T>
 		where T : IMemberDef
 	{
 		public VersionBumpType Bump => VersionBumpType.Major;
@@ -27,9 +27,9 @@ namespace Pushpay.SemVerAnalyzer.Engine.Rules
 		}
 	}
 
-	class NonAbstractMethodHasBecomeAbstractRule : NonAbstractMemberHasBecomeAbstractRule<MethodDef> { }
+	internal class NonAbstractMethodHasBecomeAbstractRule : NonAbstractMemberHasBecomeAbstractRule<MethodDef> { }
 
-	class NonAbstractPropertyHasBecomeAbstractRule : NonAbstractMemberHasBecomeAbstractRule<PropertyDef> { }
+	internal class NonAbstractPropertyHasBecomeAbstractRule : NonAbstractMemberHasBecomeAbstractRule<PropertyDef> { }
 
-	class NonAbstractEventHasBecomeAbstractRule : NonAbstractMemberHasBecomeAbstractRule<EventDef> { }
+	internal class NonAbstractEventHasBecomeAbstractRule : NonAbstractMemberHasBecomeAbstractRule<EventDef> { }
 }

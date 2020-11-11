@@ -7,7 +7,7 @@ using Pushpay.SemVerAnalyzer.Assembly;
 
 namespace Pushpay.SemVerAnalyzer.Engine
 {
-	class AnalyzeTypePropertiesRuleRunner : IVersionRuleRunner
+	internal class AnalyzeTypePropertiesRuleRunner : IVersionRuleRunner
 	{
 		readonly IEnumerable<IVersionAnalysisRule<PropertyDef>> _propertyRules;
 
@@ -27,10 +27,10 @@ namespace Pushpay.SemVerAnalyzer.Engine
 			foreach (var property in properties) {
 				changes.AddRange(_propertyRules
 									 .Where(r => r.Applies(property.Online, property.Local))
-					                 .Select(r => new Change {
-						                 Bump = r.Bump,
-						                 Message = r.GetMessage(property.Online ?? property.Local)
-					                 }));
+									 .Select(r => new Change {
+										 Bump = r.Bump,
+										 Message = r.GetMessage(property.Online ?? property.Local)
+									 }));
 			}
 
 			return changes;

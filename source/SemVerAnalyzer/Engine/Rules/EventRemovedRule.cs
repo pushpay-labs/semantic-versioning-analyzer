@@ -4,7 +4,7 @@ using Pushpay.SemVerAnalyzer.Assembly;
 
 namespace Pushpay.SemVerAnalyzer.Engine.Rules
 {
-	class EventRemovedRule : IVersionAnalysisRule<EventDef>
+	internal class EventRemovedRule : IVersionAnalysisRule<EventDef>
 	{
 		public VersionBumpType Bump => VersionBumpType.Major;
 

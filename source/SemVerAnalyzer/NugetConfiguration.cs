@@ -1,6 +1,6 @@
 ﻿namespace Pushpay.SemVerAnalyzer
 {
-	class NugetConfiguration
+	internal class NugetConfiguration
 	{
 		public string RepositoryUrl { get; set; }
 	}

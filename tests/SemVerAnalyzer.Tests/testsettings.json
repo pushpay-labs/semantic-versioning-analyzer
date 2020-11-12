@@ -1,7 +1,5 @@
 {
 	"settings": {
-		"disabledRules": [
-			"something"
-		] 
+		"disabledRules": [ ] 
 	}
 }

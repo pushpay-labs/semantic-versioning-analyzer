@@ -51,9 +51,15 @@ namespace Pushpay.SemVerAnalyzer
 		{
 			var builder = new ContainerBuilder();
 
-			var appSettings = config.GetSection("settings").Get<AppSettings>();
+			var appSettings = config.GetSection("settings").Get<AppSettings>() ??
+			                  new AppSettings {DisabledRules = new string[0]};
 			builder.RegisterInstance(appSettings).AsSelf();
 			var nugetConfig = config.GetSection("nuget").Get<NugetConfiguration>();
+			if (nugetConfig?.RepositoryUrl == null)
+			{
+				Console.WriteLine("Nuget repository missing from configuration.");
+				Environment.Exit(1);
+			}
 			builder.RegisterInstance(nugetConfig).AsSelf();
 
 			builder.RegisterModule(new AppModule(appSettings));

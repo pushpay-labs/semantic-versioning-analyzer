@@ -29,4 +29,4 @@ jobs:
     - name: Install analyzer
       run: dotnet tool install SemVerAnalyzer
     - name: Analyze semantic version
-      run: dotnet analyze-semver -c source/SemVerAnalyzer/bin/Release/netcoreapp3.1/SemVerAnalyzer.dll -o semver-report.md
+      run: dotnet analyze-semver -a source/SemVerAnalyzer/bin/Release/netcoreapp3.1/SemVerAnalyzer.dll -o semver-report.md

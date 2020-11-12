@@ -25,6 +25,7 @@ jobs:
       run: dotnet test --no-restore --verbosity normal
 
     - name: Install analyzer
+      run: dotnet new tool-manifest
       run: dotnet tool install SemVerAnalyzer
     - name: Analyze semantic version
       run: dotnet analyze-semver -c source/SemVerAnalyzer/bin/Release/netcoreapp3.1/SemVerAnalyzer.dll -o semver-report.md

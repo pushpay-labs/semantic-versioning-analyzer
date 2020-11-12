@@ -17,6 +17,7 @@
     <PackageIcon>PushpayLogo.png</PackageIcon>
     <RepositoryUrl>https://github.com/pushpay-labs/semantic-versioning-analyzer</RepositoryUrl>
     <PackageTags>semantic-version dotnet-tool semver nuget</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

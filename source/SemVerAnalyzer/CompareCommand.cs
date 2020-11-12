@@ -13,6 +13,9 @@ namespace Pushpay.SemVerAnalyzer
 		[Option('o', "outputPath", Required = false, HelpText = "The output file path for the report.")]
 		public string OutputPath { get; set; }
 
+		[Option('c', "config", Required = true, HelpText = "Path to the configuration file.")]
+		public string Configuration { get; set; }
+
 		public string FullAssemblyPath => Path.GetFullPath(Assembly);
 		public string PackageName { get; set; }
 
@@ -24,7 +27,11 @@ namespace Pushpay.SemVerAnalyzer
 			}
 
 			if (!File.Exists(Assembly)) {
-				return $"Cannot find file '{Assembly}'";
+				return $"Cannot find assembly file '{Assembly}'";
+			}
+
+			if (!File.Exists(Configuration)) {
+				return $"Cannot find assembly file '{Assembly}'";
 			}
 
 			PackageName = match.Groups["packageName"].Value;

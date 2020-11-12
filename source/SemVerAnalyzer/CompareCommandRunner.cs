@@ -41,12 +41,11 @@ namespace Pushpay.SemVerAnalyzer
 					         "assembly.  Therefore the results of this check are to be considered as a suggestion.  You may determine " +
 					         "that a particular change warrants a more severe version bump than is suggested by this check.*\n\n" +
 					         "**Please use your best judgment when updating the version.  You know your change better than this check can.**\n\n" +
-					         $"**Analysis Results**\n\n" +
+					         $"## Summary\n\n" +
 					         $"Actual version bump: `{result.ActualBump}`\n" +
 					         $"Calculated version bump: `{result.CalculatedBump}`.\n\n" +
-					         $"<details><summary>Details</summary><p>\n\n" +
-					         $"- {string.Join("\n- ", comments)}\n" +
-					         "</p></details>";
+					         $"## Details\n\n" +
+					         $"- {string.Join("\n- ", comments)}\n";
 				}
 			} catch (Exception e) {
 				var sb = new StringBuilder();

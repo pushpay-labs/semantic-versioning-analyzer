@@ -23,3 +23,10 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: Test
       run: dotnet test --no-restore --verbosity normal
+
+    - name: Create local manifest file
+      run: dotnet new tool-manifest
+    - name: Install analyzer
+      run: dotnet tool install --add-source source/SemVerAnalyzer/bin/Release SemVerAnalyzer
+    - name: Analyze semantic version
+      run: dotnet analyze-semver -a source/SemVerAnalyzer/bin/Release/netcoreapp3.1/SemVerAnalyzer.dll -o semver-report.md -c source/SemVerAnalyzer/config.json

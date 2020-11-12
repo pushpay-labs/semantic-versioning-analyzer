@@ -12,36 +12,37 @@ namespace Pushpay.SemVerAnalyzer
 {
 	internal class Program
 	{
-		static IContainer container;
+		static IContainer _container;
 
 		static async Task Main(string[] args)
 		{
-			var config = BuildConfiguration();
-			ConfigureServices(config);
-
 			await Parser.Default.ParseArguments<CompareCommand>(args)
 				.WithParsedAsync(Compare);
 		}
 
 		static async Task Compare(CompareCommand command)
 		{
+			var config = BuildConfiguration(command.Configuration);
+			ConfigureServices(config);
+
 			var validationResult = command.Validate();
 			if (validationResult != null) {
 				Console.WriteLine($"Error:\n\t{validationResult}");
 				Environment.Exit(1);
 			}
 
-			var runner = container.Resolve<CompareCommandRunner>();
+			var runner = _container.Resolve<CompareCommandRunner>();
 			var report = await runner.Compare(command);
 
-			await File.WriteAllTextAsync(command.OutputPath, report);
+			if (!string.IsNullOrWhiteSpace(command.OutputPath))
+				await File.WriteAllTextAsync(command.OutputPath, report);
 			Console.WriteLine(report);
 		}
 
-		static IConfiguration BuildConfiguration()
+		static IConfiguration BuildConfiguration(string configFilePath)
 		{
 			var builder = new ConfigurationBuilder()
-				.AddJsonFile("config.json");
+				.AddJsonFile(Path.GetFullPath(configFilePath));
 
 			return builder.Build();
 		}
@@ -57,7 +58,7 @@ namespace Pushpay.SemVerAnalyzer
 
 			builder.RegisterModule(new AppModule(appSettings));
 
-			container = builder.Build();
+			_container = builder.Build();
 		}
 	}
 }

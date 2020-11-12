@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "SemVerAnalyzer": {
+      "commandName": "Project",
+      "commandLineArgs": "-a source/SemVerAnalyzer/bin/Debug/netcoreapp3.1/SemVerAnalyzer.dll -o semver-report.md -c source\\SemVerAnalyzer\\config.json",
+      "workingDirectory": "$(SolutionDir)"
+    }
+  }
+}

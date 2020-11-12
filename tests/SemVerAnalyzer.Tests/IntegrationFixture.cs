@@ -37,7 +37,7 @@ namespace Pushpay.SemVerAnalyzer.Tests
 
 		void ConfigureServices(IConfiguration config)
 		{
-			var appSettings = config.GetSection("settings").Get<AppSettings>();
+			var appSettings = config.GetSection("settings").Get<AppSettings>() ?? new AppSettings {DisabledRules = new string[0]};
 			_builder.RegisterInstance(appSettings).AsSelf();
 
 			_builder.RegisterModule(new AppModule(appSettings));

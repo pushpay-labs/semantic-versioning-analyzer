@@ -9,7 +9,7 @@ By default, it compares the local assembly to a published assembly of the same n
 This is published as a dotnet tool.  To install:
 
 ```sh
-dotnet tool install SemVerAnalyzer --global
+dotnet tool install SemVerAnalyzer
 ```
 
 The command line options are as follows:

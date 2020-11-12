@@ -24,12 +24,7 @@ jobs:
     - name: Test
       run: dotnet test --no-restore --verbosity normal
 
-  check:
-
-    runs-on: ubuntu-latest
-
-    steps:
     - name: Install analyzer
-      run: dotnet install -g SemVerAnalyzer
+      run: dotnet tool install -g SemVerAnalyzer
     - name: Analyze semantic version
       run: dotnet analyze-semver -c source/SemVerAnalyzer/bin/Release/netcoreapp3.1/SemVerAnalyzer.dll -o semver-report.md

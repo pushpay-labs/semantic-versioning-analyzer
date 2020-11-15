@@ -20,16 +20,15 @@ dotnet tool install SemVerAnalyzer
 The command line options are as follows:
 
 ```
-  -a, --assembly          Required. The built assembly to test.
+  -a, --assembly      Required. The built assembly to test.
 
-  -o, --outputPath        The output file path for the report.  Omitting this will
-                          display to the console.
+  -o, --outputPath    The output file path for the report.
 
-  -c, --configuration     The output file path for the report.  Omitting this will
-                          display to the console.
+  -c, --config        Required. Path to the configuration file.
 
-  --help                  Display this help screen.
-  --version               Display version information.
+  --help              Display this help screen.
+
+  --version           Display version information.
 ```
 
 The dotnet command for the tool is `analyze-semver`. For example,

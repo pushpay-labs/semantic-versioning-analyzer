@@ -1,3 +1,5 @@
+# v1.0.0
+
 # v0.1.2
 
 Validate reading configuration and provide defaults where possible.

@@ -42,8 +42,8 @@ namespace Pushpay.SemVerAnalyzer
 					         "that a particular change warrants a more severe version bump than is suggested by this check.*\n\n" +
 					         "**Please use your best judgment when updating the version.  You know your change better than this check can.**\n\n" +
 					         $"## Summary\n\n" +
-					         $"Actual version bump: `{result.ActualBump}`\n" +
-					         $"Calculated version bump: `{result.CalculatedBump}`.\n\n" +
+					         $"Actual new version: `{localAssembly.Version} ({result.ActualBump})`\n" +
+					         $"Suggested new version: `{onlineAssembly.Version.GetSuggestedVersion(result.CalculatedBump)} ({result.CalculatedBump})`.\n\n" +
 					         $"## Details\n\n" +
 					         $"- {string.Join("\n- ", comments)}\n";
 				}

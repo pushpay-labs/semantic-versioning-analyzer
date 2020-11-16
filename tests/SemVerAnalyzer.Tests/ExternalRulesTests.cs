@@ -23,7 +23,8 @@ namespace Pushpay.SemVerAnalyzer.Tests
 			var command = new CompareCommand
 			{
 				Assembly = "Local.dll",
-				PackageName = "Major"
+				PackageName = "Major",
+				AdditionalRules = "AuxiliaryRules.dll"
 			};
 
 			var report = await _runner.Compare(command);

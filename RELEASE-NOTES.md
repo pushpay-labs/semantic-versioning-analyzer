@@ -1,5 +1,10 @@
 # v1.0.0
 
+## Custom rules by specifying secondary libraries
+
+- Adds `settings.additionalRulesPath` configuration setting
+- Adds `-r` / `--additional-rules` command line option
+
 # v0.1.2
 
 Validate reading configuration and provide defaults where possible.

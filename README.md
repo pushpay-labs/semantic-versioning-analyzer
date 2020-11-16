@@ -90,6 +90,7 @@ dotnet analyze-semver -a path/to/MyAssembly.dll -o results.txt -c ./config.json
   - `PropertyOnConcreteTypeSetterAddedRule`
   - `ReferencesMinorBumpedRule`
   - `TypeAddedRule`
+  - `TypeMarkedObsoleteRule`
 - Patch
   - `ReferencesPatchBumpedRule`
 

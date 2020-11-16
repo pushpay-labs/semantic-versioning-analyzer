@@ -10,6 +10,8 @@ namespace Pushpay.SemVerAnalyzer.Engine.Rules
 
 		public bool Applies(TypeDef online, TypeDef local)
 		{
+			if (online == null || local == null) return false;
+
 			var localIsObsolete = local.CustomAttributes.Any(a => a.AttributeType.FullName == typeof(ObsoleteAttribute).FullName);
 			var onlineIsObsolete = online.CustomAttributes.Any(a => a.AttributeType.FullName == typeof(ObsoleteAttribute).FullName);
 

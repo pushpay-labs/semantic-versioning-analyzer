@@ -21,6 +21,10 @@ Now it will also show the actual and suggested version:
 > Actual new version: `1.0.0` (Major)
 > Suggested new version: `0.2.0` (Minor).
 
+## Obsoleting code is a minor bump
+
+- Adds a new rule regarding marking code as `[Obsolete]`.
+
 # v0.1.2
 
 Validate reading configuration and provide defaults where possible.

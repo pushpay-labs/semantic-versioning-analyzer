@@ -23,7 +23,7 @@ namespace Pushpay.SemVerAnalyzer
 		static async Task Compare(CompareCommand command)
 		{
 			var config = BuildConfiguration(command.Configuration);
-			ConfigureServices(config);
+			ConfigureServices(config, command.AdditionalRulesPath);
 
 			var validationResult = command.Validate();
 			if (validationResult != null) {
@@ -47,7 +47,7 @@ namespace Pushpay.SemVerAnalyzer
 			return builder.Build();
 		}
 
-		static void ConfigureServices(IConfiguration config)
+		static void ConfigureServices(IConfiguration config, string additionalRulesPath)
 		{
 			var builder = new ContainerBuilder();
 
@@ -63,6 +63,7 @@ namespace Pushpay.SemVerAnalyzer
 			builder.RegisterInstance(nugetConfig).AsSelf();
 
 			builder.RegisterModule(new AppModule(appSettings));
+			builder.RegisterModule(new ExternalRuleModule(appSettings, additionalRulesPath));
 
 			_container = builder.Build();
 		}

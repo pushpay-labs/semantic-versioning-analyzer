@@ -24,7 +24,7 @@ namespace Pushpay.SemVerAnalyzer.Engine
 		}
 
 		public VersionAnalysisResult AnalyzeVersions(AssemblyPublicInterface localPublicInterface,
-															AssemblyPublicInterface onlinePublicInterface)
+													 AssemblyPublicInterface onlinePublicInterface)
 		{
 			var result = new VersionAnalysisResult();
 

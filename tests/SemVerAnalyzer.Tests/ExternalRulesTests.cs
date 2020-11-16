@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Autofac;
 using PowerAssert;
 using Xunit;
 using Xunit.Abstractions;
@@ -13,6 +14,8 @@ namespace Pushpay.SemVerAnalyzer.Tests
 		public ExternalRulesTests(IntegrationFixture integrationFixture,
 			ITestOutputHelper testOutputHelper)
 		{
+			integrationFixture.Builder.RegisterModule(new ExternalRuleModule(integrationFixture.Settings, "AuxiliaryRules.dll"));
+
 			_testOutputHelper = testOutputHelper;
 			_runner = integrationFixture.CompareCommandRunner;
 		}
@@ -23,8 +26,7 @@ namespace Pushpay.SemVerAnalyzer.Tests
 			var command = new CompareCommand
 			{
 				Assembly = "Local.dll",
-				PackageName = "Major",
-				AdditionalRules = "AuxiliaryRules.dll"
+				PackageName = "Minor"
 			};
 
 			var report = await _runner.Compare(command);
@@ -33,7 +35,7 @@ namespace Pushpay.SemVerAnalyzer.Tests
 			using (var poly = PAssert.Poly())
 			{
 				poly.IsTrue(() => report != null);
-				poly.IsTrue(() => report.Contains("internal type removed"));
+				poly.IsTrue(() => report.Contains("always bump major"));
 			}
 		}
 	}

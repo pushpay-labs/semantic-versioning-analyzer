@@ -4,9 +4,13 @@
 
 ## Summary
 
-Actual version bump: `Patch`
+Actual version bump: `None`
 Calculated version bump: `Minor`.
 
 ## Details
 
-- (Minor) `CompareCommand.Configuration` is new or has been made accessible.
+- (Minor) `AppSettings.AdditionalRulesPath` is new or has been made accessible.
+- (Minor) `CompareCommand.AdditionalRulesPath` is new or has been made accessible.
+- (Minor) `ExternalRuleModule` is new or has been made accessible.
+- (Minor) `IVersionAnalysisRule` is new or has been made accessible.
+- (Minor) `IVersionAnalysisRule`1` is new or has been made accessible.

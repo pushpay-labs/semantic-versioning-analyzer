@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Minor", "tests\TestReferenc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Patch", "tests\TestReferences\Patch\Patch.csproj", "{71EDB951-69B6-4274-B5F2-250C57690A13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuxiliaryRules", "tests\TestReferences\AuxiliaryRules\AuxiliaryRules.csproj", "{B04F1ED6-FE85-4BCC-947A-76D78F30A77C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuxiliaryRules", "tests\TestReferences\AuxiliaryRules\AuxiliaryRules.csproj", "{B04F1ED6-FE85-4BCC-947A-76D78F30A77C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemVerAnalyzer.Abstractions", "source\SemVerAnalyzer.Abstractions\SemVerAnalyzer.Abstractions.csproj", "{CBD74B67-E029-4A99-89B5-4330ABA94A1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{B04F1ED6-FE85-4BCC-947A-76D78F30A77C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B04F1ED6-FE85-4BCC-947A-76D78F30A77C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B04F1ED6-FE85-4BCC-947A-76D78F30A77C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBD74B67-E029-4A99-89B5-4330ABA94A1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBD74B67-E029-4A99-89B5-4330ABA94A1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBD74B67-E029-4A99-89B5-4330ABA94A1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBD74B67-E029-4A99-89B5-4330ABA94A1F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

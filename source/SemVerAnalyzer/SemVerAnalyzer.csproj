@@ -43,4 +43,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SemVerAnalyzer.Abstractions\SemVerAnalyzer.Abstractions.csproj" />
+  </ItemGroup>
+
 </Project>

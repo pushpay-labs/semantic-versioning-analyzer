@@ -17,7 +17,7 @@ jobs:
           dotnet-version: 3.1.301
       # Publish
       - name: publish tool on version change
-        id: publish_nuget
+        id: publish_tool
         uses: rohith/publish-nuget@v2
         with:
           # Filepath of the project to be packaged, relative to root of repository
@@ -50,7 +50,7 @@ jobs:
           # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
           # INCLUDE_SYMBOLS: false
       - name: publish abstractions on version change
-        id: publish_nuget
+        id: publish_abstractions
         uses: rohith/publish-nuget@v2
         with:
           # Uses same set of options as from above

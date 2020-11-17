@@ -1,4 +1,4 @@
-namespace Pushpay.SemVerAnalyzer.Engine
+namespace SemVerAnalyzer.Abstractions
 {
 	public enum VersionBumpType
 	{

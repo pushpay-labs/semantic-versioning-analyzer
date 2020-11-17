@@ -1,5 +1,6 @@
 using System;
 using Pushpay.SemVerAnalyzer.Engine;
+using SemVerAnalyzer.Abstractions;
 
 namespace Pushpay.SemVerAnalyzer
 {

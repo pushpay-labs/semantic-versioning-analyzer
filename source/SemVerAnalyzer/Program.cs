@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -52,7 +53,7 @@ namespace Pushpay.SemVerAnalyzer
 			var builder = new ContainerBuilder();
 
 			var appSettings = config.GetSection("settings").Get<AppSettings>() ??
-			                  new AppSettings {DisabledRules = new string[0]};
+			                  new AppSettings {RuleOverrides = new Dictionary<string, RuleOverrideType>()};
 			builder.RegisterInstance(appSettings).AsSelf();
 			var nugetConfig = config.GetSection("nuget").Get<NugetConfiguration>();
 			if (nugetConfig?.RepositoryUrl == null)

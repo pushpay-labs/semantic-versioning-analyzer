@@ -1,5 +1,4 @@
 using System.IO;
-using System.Linq;
 using Autofac;
 using Pushpay.SemVerAnalyzer.Engine;
 
@@ -45,7 +44,7 @@ namespace Pushpay.SemVerAnalyzer
 			var assembly = System.Reflection.Assembly.LoadFile(fullPath);
 
 			builder.RegisterAssemblyTypes(assembly)
-				.Where(t => t.IsAssignableTo<IVersionAnalysisRule>() && !_settings.DisabledRules.Contains(t.Name))
+				.Where(t => t.IsAssignableTo<IVersionAnalysisRule>() && _settings.GetOverrideType(t) != RuleOverrideType.NoOverride)
 				.AsImplementedInterfaces()
 				.AsSelf();
 		}

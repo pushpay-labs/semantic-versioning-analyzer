@@ -16,7 +16,7 @@ jobs:
         with:
           dotnet-version: 3.1.301
       # Publish
-      - name: publish on version change
+      - name: publish tool on version change
         id: publish_nuget
         uses: rohith/publish-nuget@v2
         with:
@@ -49,3 +49,12 @@ jobs:
 
           # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
           # INCLUDE_SYMBOLS: false
+            publish:
+      - name: publish abstractions on version change
+        id: publish_nuget
+        uses: rohith/publish-nuget@v2
+        with:
+          # Uses same set of options as from above
+          PROJECT_FILE_PATH: source/SemVerAnalyzer.Abstractions/SemVerAnalyzer.Abstractions.csproj
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          

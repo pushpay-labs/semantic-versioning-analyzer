@@ -1,6 +1,6 @@
 {
 	"settings": {
-		"disabledRules": [ ]
+		"ruleOverrides": { }
 	},
 	"nuget": {
 		"repositoryUrl": "https://www.nuget.org/api/v2/package/"

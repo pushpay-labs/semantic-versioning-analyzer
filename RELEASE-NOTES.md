@@ -23,7 +23,11 @@ Now it will also show the actual and suggested version:
 
 ## Obsoleting code is a minor bump
 
-- Adds a new rule regarding marking code as `[Obsolete]`.
+Adds a new rule regarding marking code as `[Obsolete]`.
+
+## Rule Overrides
+
+Replaces configuration setting `settings.disabledRules` array with `settings.ruleOverrides` object.
 
 # v0.1.2
 

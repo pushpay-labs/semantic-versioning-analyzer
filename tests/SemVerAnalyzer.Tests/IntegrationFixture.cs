@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Autofac;
 
 using Microsoft.Extensions.Configuration;
@@ -39,7 +40,8 @@ namespace Pushpay.SemVerAnalyzer.Tests
 
 		void ConfigureServices(IConfiguration config)
 		{
-			Settings = config.GetSection("settings").Get<AppSettings>() ?? new AppSettings {DisabledRules = new string[0]};
+			Settings = config.GetSection("settings").Get<AppSettings>() ??
+			           new AppSettings {RuleOverrides = new Dictionary<string, RuleOverrideType>()};
 			Builder.RegisterInstance(Settings).AsSelf();
 
 			Builder.RegisterModule(new AppModule(Settings));

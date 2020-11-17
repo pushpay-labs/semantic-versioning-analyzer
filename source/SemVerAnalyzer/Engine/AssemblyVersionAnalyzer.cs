@@ -5,6 +5,7 @@ using System.Linq;
 using dnlib.DotNet;
 
 using Pushpay.SemVerAnalyzer.Assembly;
+using SemVerAnalyzer.Abstractions;
 
 namespace Pushpay.SemVerAnalyzer.Engine
 {

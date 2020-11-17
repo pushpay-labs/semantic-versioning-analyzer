@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using SemVerAnalyzer.Abstractions;
 
 namespace Pushpay.SemVerAnalyzer.Engine
 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using dnlib.DotNet;
+using SemVerAnalyzer.Abstractions;
 
 namespace Pushpay.SemVerAnalyzer.Engine.Rules
 {

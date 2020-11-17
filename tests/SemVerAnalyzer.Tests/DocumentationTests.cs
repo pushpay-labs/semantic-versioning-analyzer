@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using PowerAssert;
+using SemVerAnalyzer.Abstractions;
 using Xunit;
 
 namespace Pushpay.SemVerAnalyzer.Tests
@@ -13,12 +14,9 @@ namespace Pushpay.SemVerAnalyzer.Tests
 		public void ReadmeListsAllBuiltInRules()
 		{
 			var readmeLines = File.ReadAllLines("README.md");
-			var ruleInterfaceType = typeof(AppModule).Assembly
-				.GetTypes()
-				.FirstOrDefault(t => t.Name == "IVersionAnalysisRule" && !t.IsGenericType);
 			var ruleTypes = typeof(AppModule).Assembly
 				.GetTypes()
-				.Where(t => !t.IsAbstract && !t.IsInterface && ruleInterfaceType.IsAssignableFrom(t));
+				.Where(t => !t.IsAbstract && !t.IsInterface && typeof(IVersionAnalysisRule).IsAssignableFrom(t));
 
 			var sb = new StringBuilder();
 

@@ -49,7 +49,6 @@ jobs:
 
           # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
           # INCLUDE_SYMBOLS: false
-            publish:
       - name: publish abstractions on version change
         id: publish_nuget
         uses: rohith/publish-nuget@v2

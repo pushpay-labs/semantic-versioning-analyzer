@@ -44,7 +44,7 @@ namespace Pushpay.SemVerAnalyzer
 			var assembly = System.Reflection.Assembly.LoadFile(fullPath);
 
 			builder.RegisterAssemblyTypes(assembly)
-				.Where(t => t.IsAssignableTo<IVersionAnalysisRule>() && _settings.GetOverrideType(t) != RuleOverrideType.NoOverride)
+				.Where(t => t.IsAssignableTo<IVersionAnalysisRule>() && _settings.GetOverrideType(t) != RuleOverrideType.Ignore)
 				.AsImplementedInterfaces()
 				.AsSelf();
 		}

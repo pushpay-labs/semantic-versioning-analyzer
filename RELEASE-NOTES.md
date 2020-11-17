@@ -5,6 +5,8 @@
 - Adds `settings.additionalRulesPath` configuration setting
 - Adds `-r` / `--additional-rules` command line option
 
+New package published, `SemVerAnalyzer.Abstractions`, which defines `IVersionAnalysisRule` for writing custom rules.
+
 ## Version suggestion
 
 Previously the report would just show the actual and calculated bump:

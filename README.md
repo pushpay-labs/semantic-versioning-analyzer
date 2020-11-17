@@ -1,7 +1,19 @@
-<a href="https://www.nuget.org/packages/SemVerAnalyzer/">
-  <img alt="NuGet version" src="https://img.shields.io/nuget/v/SemVerAnalyzer.svg?svg=true"></img>
-  <img alt="NuGet version" src="https://img.shields.io/nuget/dt/SemVerAnalyzer.svg?svg=true"></img>
-</a>
+<table>
+  <tr>
+    <td>
+      <a href="https://www.nuget.org/packages/SemVerAnalyzer/">
+        <img alt="NuGet version" src="https://img.shields.io/nuget/v/SemVerAnalyzer.svg?svg=true"></img><br>
+        <img alt="NuGet version" src="https://img.shields.io/nuget/dt/SemVerAnalyzer.svg?svg=true"></img>
+      </a>
+    </td>
+    <td>
+      <a href="https://www.nuget.org/packages/SemVerAnalyzer.Abstractions/">
+        <img alt="NuGet version" src="https://img.shields.io/nuget/v/SemVerAnalyzer.Abstractions.svg?svg=true"></img><br>
+        <img alt="NuGet version" src="https://img.shields.io/nuget/dt/SemVerAnalyzer.Abstractions.svg?svg=true"></img>
+      </a>
+    </td>
+  </tr>
+</table>
 
 # Semantic Versioning Analyzer
 
@@ -109,7 +121,7 @@ A rule is an implementation of `IVersionAnalysisRule<T>` where `T` is one of
 - `MethodDef`
 - `EventDef`
 
-as defined by the [`dnlib`](https://github.com/0xd4d/dnlib) library.  The interface is defined in a separate Nuget package, `SemVerAnalyzer.Abstractions` for this purpose.
+as defined by the [`dnlib`](https://github.com/0xd4d/dnlib) library.  The interface is defined in a separate Nuget package, `SemVerAnalyzer.Abstractions`, for this purpose.
 
 ## Overriding Rule Severity
 

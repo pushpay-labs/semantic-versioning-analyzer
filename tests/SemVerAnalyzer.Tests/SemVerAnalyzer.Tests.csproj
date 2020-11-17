@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\source\SemVerAnalyzer\SemVerAnalyzer.csproj" />
+    <ProjectReference Include="..\TestReferences\AuxiliaryRules\AuxiliaryRules.csproj" />
     <ProjectReference Include="..\TestReferences\Local\Local.csproj" />
     <ProjectReference Include="..\TestReferences\Major\Major.csproj" />
     <ProjectReference Include="..\TestReferences\Minor\Minor.csproj" />

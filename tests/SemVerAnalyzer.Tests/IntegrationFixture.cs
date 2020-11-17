@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Autofac;
 
 using Microsoft.Extensions.Configuration;
@@ -8,23 +9,25 @@ namespace Pushpay.SemVerAnalyzer.Tests
 {
 	public class IntegrationFixture
 	{
-		readonly ContainerBuilder _builder;
 		IContainer _container;
 
-		public IContainer Container => _container ??= _builder.Build();
+		public ContainerBuilder Builder { get; }
+		public AppSettings Settings { get; private set; }
+
+		public IContainer Container => _container ??= Builder.Build();
 
 		public IAssemblyVersionAnalyzer AssemblyVersionAnalyzer => Container.Resolve<IAssemblyVersionAnalyzer>();
 		public CompareCommandRunner CompareCommandRunner => Container.Resolve<CompareCommandRunner>();
 
 		public IntegrationFixture()
 		{
-			_builder = new ContainerBuilder();
+			Builder = new ContainerBuilder();
 			ConfigureServices(BuildConfiguration());
 		}
 
 		public void OverrideRegistration<T>(T service) where T : class
 		{
-			_builder.RegisterInstance(service).AsImplementedInterfaces().AsSelf();
+			Builder.RegisterInstance(service).AsImplementedInterfaces().AsSelf();
 		}
 
 		static IConfiguration BuildConfiguration()
@@ -37,12 +40,13 @@ namespace Pushpay.SemVerAnalyzer.Tests
 
 		void ConfigureServices(IConfiguration config)
 		{
-			var appSettings = config.GetSection("settings").Get<AppSettings>() ?? new AppSettings {DisabledRules = new string[0]};
-			_builder.RegisterInstance(appSettings).AsSelf();
+			Settings = config.GetSection("settings").Get<AppSettings>() ??
+			           new AppSettings {RuleOverrides = new Dictionary<string, RuleOverrideType>()};
+			Builder.RegisterInstance(Settings).AsSelf();
 
-			_builder.RegisterModule(new AppModule(appSettings));
+			Builder.RegisterModule(new AppModule(Settings));
 
-			_builder.RegisterType<FakeNugetClient>()
+			Builder.RegisterType<FakeNugetClient>()
 				.AsImplementedInterfaces()
 				.AsSelf();
 		}

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -23,7 +24,7 @@ namespace Pushpay.SemVerAnalyzer
 		static async Task Compare(CompareCommand command)
 		{
 			var config = BuildConfiguration(command.Configuration);
-			ConfigureServices(config);
+			ConfigureServices(config, command.AdditionalRulesPath);
 
 			var validationResult = command.Validate();
 			if (validationResult != null) {
@@ -47,12 +48,12 @@ namespace Pushpay.SemVerAnalyzer
 			return builder.Build();
 		}
 
-		static void ConfigureServices(IConfiguration config)
+		static void ConfigureServices(IConfiguration config, string additionalRulesPath)
 		{
 			var builder = new ContainerBuilder();
 
 			var appSettings = config.GetSection("settings").Get<AppSettings>() ??
-			                  new AppSettings {DisabledRules = new string[0]};
+			                  new AppSettings {RuleOverrides = new Dictionary<string, RuleOverrideType>()};
 			builder.RegisterInstance(appSettings).AsSelf();
 			var nugetConfig = config.GetSection("nuget").Get<NugetConfiguration>();
 			if (nugetConfig?.RepositoryUrl == null)
@@ -63,6 +64,7 @@ namespace Pushpay.SemVerAnalyzer
 			builder.RegisterInstance(nugetConfig).AsSelf();
 
 			builder.RegisterModule(new AppModule(appSettings));
+			builder.RegisterModule(new ExternalRuleModule(appSettings, additionalRulesPath));
 
 			_container = builder.Build();
 		}

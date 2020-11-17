@@ -5,6 +5,7 @@ using System.Linq;
 using dnlib.DotNet;
 
 using Pushpay.SemVerAnalyzer.Assembly;
+using SemVerAnalyzer.Abstractions;
 
 namespace Pushpay.SemVerAnalyzer.Engine
 {
@@ -13,18 +14,21 @@ namespace Pushpay.SemVerAnalyzer.Engine
 		readonly IEnumerable<IVersionRuleRunner> _ruleRunners;
 		readonly IEnumerable<IVersionAnalysisRule<TypeDef>> _typeRules;
 		readonly IEnumerable<IVersionAnalysisRule<AssemblyReference>> _assemblyRules;
+		readonly AppSettings _settings;
 
 		public AssemblyVersionAnalyzer(IEnumerable<IVersionRuleRunner> ruleRunners,
 									   IEnumerable<IVersionAnalysisRule<TypeDef>> typeRules,
-									   IEnumerable<IVersionAnalysisRule<AssemblyReference>> assemblyRules)
+									   IEnumerable<IVersionAnalysisRule<AssemblyReference>> assemblyRules,
+									   AppSettings settings)
 		{
 			_ruleRunners = ruleRunners;
 			_typeRules = typeRules;
 			_assemblyRules = assemblyRules;
+			_settings = settings;
 		}
 
 		public VersionAnalysisResult AnalyzeVersions(AssemblyPublicInterface localPublicInterface,
-															AssemblyPublicInterface onlinePublicInterface)
+													 AssemblyPublicInterface onlinePublicInterface)
 		{
 			var result = new VersionAnalysisResult();
 
@@ -86,14 +90,16 @@ namespace Pushpay.SemVerAnalyzer.Engine
 															 (o, l) => new {Online = o, Local = l});
 			foreach (var reference in references) {
 				var changes = _assemblyRules.Where(r => r.Applies(reference.Online, reference.Local))
-					.Select(r => new Change {
-						Bump = r.Bump,
-						Message = r.GetMessage(reference.Local)
+					.Select(r =>
+					{
+						var overrideType = _settings.GetOverrideType(r.GetType());
+						return new Change {
+							Bump = overrideType.ToBumpType(r.Bump),
+							Message = r.GetMessage(reference.Local)
+						};
 					}).ToList();
 
-				if (changes.Any()) {
-					comments.AddRange(changes);
-				}
+				comments.AddRange(changes.Where(c => c.Bump != VersionBumpType.None));
 
 				overallBump = Max(overallBump, changes.Select(c => c.Bump));
 			}
@@ -102,18 +108,22 @@ namespace Pushpay.SemVerAnalyzer.Engine
 												   o => o.FullName,
 												   l => l.FullName,
 												   (o, l) => new { Online = o, Local = l });
-			foreach (var type in types) {
+			foreach (var type in types)
+			{
 				var changes = _typeRules.Where(r => r.Applies(type.Online, type.Local))
-					.Select(r => new Change {
-						Bump = r.Bump,
-						Message = r.GetMessage(type.Online ?? type.Local)
+					.Select(r =>
+					{
+						var overrideType = _settings.GetOverrideType(r.GetType());
+						return new Change
+						{
+							Bump = overrideType.ToBumpType(r.Bump),
+							Message = r.GetMessage(type.Online ?? type.Local)
+						};
 					}).ToList();
 
 				changes.AddRange(_ruleRunners.SelectMany(a => a.Analyze(type.Online, type.Local)));
 
-				if (changes.Any()) {
-					comments.AddRange(changes);
-				}
+				comments.AddRange(changes.Where(c => c.Bump != VersionBumpType.None));
 
 				overallBump = Max(overallBump, changes.Select(c => c.Bump));
 			}

@@ -7,9 +7,9 @@
     <RootNamespace>Pushpay.SemVerAnalyzer</RootNamespace>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>analyze-semver</ToolCommandName>
-    <Version>0.1.2</Version>
-    <AssemblyVersion>0.1.0.0</AssemblyVersion>
-    <FileVersion>0.1.2.0</FileVersion>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/pushpay-labs/semantic-versioning-analyzer</PackageProjectUrl>
     <Authors>PushpayLabs</Authors>
@@ -41,6 +41,10 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SemVerAnalyzer.Abstractions\SemVerAnalyzer.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

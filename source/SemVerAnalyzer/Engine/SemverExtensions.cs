@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using SemVerAnalyzer.Abstractions;
 
 namespace Pushpay.SemVerAnalyzer.Engine
 {
@@ -10,7 +11,7 @@ namespace Pushpay.SemVerAnalyzer.Engine
 		public static int MajorVersion(this string version)
 		{
 			var match = _versionFormat.Match(version);
-			if (!match.Success) throw new FormatException("Not a version");
+			if (!match.Success) throw new FormatException("Not a semantic version");
 
 			var major = int.Parse(match.Groups["major"].Value);
 
@@ -22,9 +23,9 @@ namespace Pushpay.SemVerAnalyzer.Engine
 			var match = _versionFormat.Match(version);
 			if (!match.Success) throw new FormatException("Not a version");
 
-			var major = int.Parse(match.Groups["minor"].Value);
+			var minor = int.Parse(match.Groups["minor"].Value);
 
-			return major;
+			return minor;
 		}
 
 		public static int PatchVersion(this string version)
@@ -32,9 +33,9 @@ namespace Pushpay.SemVerAnalyzer.Engine
 			var match = _versionFormat.Match(version);
 			if (!match.Success) throw new FormatException("Not a version");
 
-			var major = int.Parse(match.Groups["patch"].Value);
+			var patch = int.Parse(match.Groups["patch"].Value);
 
-			return major;
+			return patch;
 		}
 
 		public static string GetSemVer(string version)
@@ -47,6 +48,26 @@ namespace Pushpay.SemVerAnalyzer.Engine
 			var patch = int.Parse(match.Groups["patch"].Value);
 
 			return $"{major}.{minor}.{patch}";
+		}
+
+		public static string GetSuggestedVersion(this string version, VersionBumpType bump)
+		{
+			var match = _versionFormat.Match(version);
+			if (!match.Success) throw new FormatException("Not a version");
+
+			var major = int.Parse(match.Groups["major"].Value);
+			var minor = int.Parse(match.Groups["minor"].Value);
+			var patch = int.Parse(match.Groups["patch"].Value);
+
+			return bump switch
+			{
+				VersionBumpType.Downgrade => null,
+				VersionBumpType.None => version,
+				VersionBumpType.Patch => $"{major}.{minor}.{patch + 1}",
+				VersionBumpType.Minor => $"{major}.{minor + 1}.0",
+				VersionBumpType.Major => $"{major + 1}.0.0",
+				_ => throw new ArgumentOutOfRangeException(nameof(bump), bump, null)
+			};
 		}
 	}
 }

@@ -1,3 +1,5 @@
+using SemVerAnalyzer.Abstractions;
+
 namespace Pushpay.SemVerAnalyzer.Engine
 {
 	public class Change

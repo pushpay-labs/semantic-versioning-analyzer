@@ -16,6 +16,9 @@ namespace Pushpay.SemVerAnalyzer
 		[Option('c', "config", Required = true, HelpText = "Path to the configuration file.")]
 		public string Configuration { get; set; }
 
+		[Option('r', "additional-rules", Required = false, HelpText = "A path to a single assembly or folder of assemblies which contain additional rules.  Overrides `additionalRules` setting in JSON configuration file.")]
+		public string AdditionalRulesPath { get; set; }
+		
 		public string FullAssemblyPath => Path.GetFullPath(Assembly);
 		public string PackageName { get; set; }
 

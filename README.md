@@ -1,7 +1,23 @@
-<a href="https://www.nuget.org/packages/SemVerAnalyzer/">
-  <img alt="NuGet version" src="https://img.shields.io/nuget/v/SemVerAnalyzer.svg?svg=true"></img>
-  <img alt="NuGet version" src="https://img.shields.io/nuget/dt/SemVerAnalyzer.svg?svg=true"></img>
-</a>
+<table>
+  <tr>
+    <th>SemVerAnalyzer</th>
+    <th>SemVerAnalyzer.Abstractions</th>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.nuget.org/packages/SemVerAnalyzer/">
+        <img alt="NuGet version" src="https://img.shields.io/nuget/v/SemVerAnalyzer.svg?svg=true"></img><br>
+        <img alt="NuGet version" src="https://img.shields.io/nuget/dt/SemVerAnalyzer.svg?svg=true"></img>
+      </a>
+    </td>
+    <td>
+      <a href="https://www.nuget.org/packages/SemVerAnalyzer.Abstractions/">
+        <img alt="NuGet version" src="https://img.shields.io/nuget/v/SemVerAnalyzer.Abstractions.svg?svg=true"></img><br>
+        <img alt="NuGet version" src="https://img.shields.io/nuget/dt/SemVerAnalyzer.Abstractions.svg?svg=true"></img>
+      </a>
+    </td>
+  </tr>
+</table>
 
 # Semantic Versioning Analyzer
 
@@ -20,15 +36,18 @@ dotnet tool install SemVerAnalyzer
 The command line options are as follows:
 
 ```
-  -a, --assembly      Required. The built assembly to test.
+  -a, --assembly            Required. The built assembly to test.
 
-  -o, --outputPath    The output file path for the report.
+  -o, --outputPath          The output file path for the report.
 
-  -c, --config        Required. Path to the configuration file.
+  -c, --config              Required. Path to the configuration file.
 
-  --help              Display this help screen.
+  -r, --additional-rules    A path to a single assembly or folder of assemblies which contain additional
+                            rules.  Overrides `additionalRules` setting in JSON configuration file.
 
-  --version           Display version information.
+  --help                    Display this help screen.
+
+  --version                 Display version information.
 ```
 
 The dotnet command for the tool is `analyze-semver`. For example,
@@ -90,6 +109,33 @@ dotnet analyze-semver -a path/to/MyAssembly.dll -o results.txt -c ./config.json
   - `PropertyOnConcreteTypeSetterAddedRule`
   - `ReferencesMinorBumpedRule`
   - `TypeAddedRule`
+  - `TypeMarkedObsoleteRule`
 - Patch
   - `ReferencesPatchBumpedRule`
 
+## Custom Rules
+
+The `-r` / `--additional-rules` command switch takes a path to a single assembly or a folder that contains assemblies where additional rules are defined.  This can also be set in by the `settings.additionalRules` configuration setting.  *The command line switch will override the configuration setting.*
+
+A rule is an implementation of `IVersionAnalysisRule<T>` where `T` is one of
+
+- `AssemblyDef`
+- `TypeDef`
+- `PropertyDef`
+- `MethodDef`
+- `EventDef`
+
+as defined by the [`dnlib`](https://github.com/0xd4d/dnlib) library.  The interface is defined in a separate Nuget package, `SemVerAnalyzer.Abstractions`, for this purpose.
+
+## Overriding Rule Severity
+
+The built-in rules are defined with severities as listed above.  However, this can be overridden via the `settings.ruleOverrides` configuration setting.
+
+The value for this setting is an object whose keys are rule names and values are one of
+
+- `Ignore`
+- `Major`
+- `Minor`
+- `Patch`
+
+`Ignore` will prevent the rule from running, while this others will recategorize the rules as configured.

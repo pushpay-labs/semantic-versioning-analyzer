@@ -1,5 +1,9 @@
 <table>
   <tr>
+    <th>SemVerAnalyzer</th>
+    <th>SemVerAnalyzer.Abstractions</th>
+  </tr>
+  <tr>
     <td>
       <a href="https://www.nuget.org/packages/SemVerAnalyzer/">
         <img alt="NuGet version" src="https://img.shields.io/nuget/v/SemVerAnalyzer.svg?svg=true"></img><br>

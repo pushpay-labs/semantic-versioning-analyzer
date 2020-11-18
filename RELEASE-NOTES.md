@@ -1,3 +1,7 @@
+# v1.1.1
+
+Fixed assembly names.  Previous packages will be unlisted from nuget.org.
+
 # v1.1.0
 
 Migrated `CSharpNameGenerator` extensions to `SemVerAnalyzer.Abstractions` and made public to help custom rule authors output more friendly messages.

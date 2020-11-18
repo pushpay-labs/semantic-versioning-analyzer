@@ -59,7 +59,7 @@ dotnet analyze-semver -a path/to/MyAssembly.dll -o results.txt -c ./config.json
 ## Configuration
 
 - `settings`
-  - `disabledRules` - An array of rule names (see below) to skip.
+  - `ruleOverrides` - Provides overrides for individual rules (see below).
 - `nuget`
   - `repositoryUrl` - The URL to the Nuget feed where the existing assembly is published.
 

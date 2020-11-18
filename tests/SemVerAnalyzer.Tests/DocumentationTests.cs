@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using PowerAssert;
-using SemVerAnalyzer.Abstractions;
+using Pushpay.SemVerAnalyzer.Abstractions;
 using Xunit;
 
 namespace Pushpay.SemVerAnalyzer.Tests

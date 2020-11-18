@@ -1,5 +1,5 @@
+using Pushpay.SemVerAnalyzer.Abstractions;
 using Pushpay.SemVerAnalyzer.Assembly;
-using SemVerAnalyzer.Abstractions;
 
 namespace Pushpay.SemVerAnalyzer.Engine.Rules
 {
@@ -9,6 +9,8 @@ namespace Pushpay.SemVerAnalyzer.Engine.Rules
 
 		public bool Applies(AssemblyReference online, AssemblyReference local)
 		{
+			if (online == null || local == null) return false;
+
 			return online.Version.MinorVersion() < local.Version.MinorVersion();
 		}
 

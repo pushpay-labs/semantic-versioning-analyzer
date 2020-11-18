@@ -2,9 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 using dnlib.DotNet;
-
+using Pushpay.SemVerAnalyzer.Abstractions;
 using Pushpay.SemVerAnalyzer.Assembly;
-using SemVerAnalyzer.Abstractions;
 
 namespace Pushpay.SemVerAnalyzer.Engine
 {

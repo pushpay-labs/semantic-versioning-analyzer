@@ -1,6 +1,6 @@
 ﻿using PowerAssert;
+using Pushpay.SemVerAnalyzer.Abstractions;
 using Pushpay.SemVerAnalyzer.Engine;
-using SemVerAnalyzer.Abstractions;
 using Xunit;
 
 namespace Pushpay.SemVerAnalyzer.Tests

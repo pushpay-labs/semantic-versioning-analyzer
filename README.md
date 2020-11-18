@@ -127,6 +127,8 @@ A rule is an implementation of `IVersionAnalysisRule<T>` where `T` is one of
 
 as defined by the [`dnlib`](https://github.com/0xd4d/dnlib) library.  The interface is defined in a separate Nuget package, `SemVerAnalyzer.Abstractions`, for this purpose.
 
+To help with output, there are also a number of extension methods on the pertinent `dnlib` types that can generate C#-formatted names for members.
+
 ## Overriding Rule Severity
 
 The built-in rules are defined with severities as listed above.  However, this can be overridden via the `settings.ruleOverrides` configuration setting.

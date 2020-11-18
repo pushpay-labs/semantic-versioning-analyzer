@@ -1,3 +1,9 @@
+# v1.1.0
+
+Migrated `CSharpNameGenerator` extensions to `SemVerAnalyzer.Abstractions` and made public to help custom rule authors output more friendly messages.
+
+Fixed `TypeMarkedObsoleteRule` to output C#-formatted names.
+
 # v1.0.0
 
 ## Custom rules by specifying secondary libraries
@@ -13,15 +19,15 @@ Previously the report would just show the actual and calculated bump:
 
 > ## Summary
 >
-> Actual version bump: `Major`
-> Calculated version bump: `Minor`.
+> - Actual version bump: `Major`
+> - Calculated version bump: `Minor`.
 
 Now it will also show the actual and suggested version:
 
 > ## Summary
 > 
-> Actual new version: `1.0.0` (Major)
-> Suggested new version: `0.2.0` (Minor).
+> - Actual new version: `1.0.0` (Major)
+> - Suggested new version: `0.2.0` (Minor).
 
 ## Obsoleting code is a minor bump
 

@@ -1,12 +1,11 @@
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-
 using dnlib.DotNet;
 
-namespace Pushpay.SemVerAnalyzer.Assembly
+namespace SemVerAnalyzer.Abstractions
 {
-	internal static class CSharpNameGenerator
+	public static class CSharpNameGenerator
 	{
 		public static string GetName(this IMemberDef member)
 		{

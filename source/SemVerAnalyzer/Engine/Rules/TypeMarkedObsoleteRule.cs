@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using dnlib.DotNet;
+using Pushpay.SemVerAnalyzer.Assembly;
 using SemVerAnalyzer.Abstractions;
 
 namespace Pushpay.SemVerAnalyzer.Engine.Rules
@@ -21,7 +22,7 @@ namespace Pushpay.SemVerAnalyzer.Engine.Rules
 
 		public string GetMessage(TypeDef info)
 		{
-			return $"`{info.Name}` has been marked obsolete.";
+			return $"`{info.GetName()}` has been marked obsolete.";
 		}
 	}
 }

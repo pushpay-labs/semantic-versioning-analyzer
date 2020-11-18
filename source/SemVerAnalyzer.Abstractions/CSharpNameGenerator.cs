@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using dnlib.DotNet;
 
-namespace SemVerAnalyzer.Abstractions
+namespace Pushpay.SemVerAnalyzer.Abstractions
 {
 	public static class CSharpNameGenerator
 	{

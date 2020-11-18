@@ -1,4 +1,4 @@
-using SemVerAnalyzer.Abstractions;
+using Pushpay.SemVerAnalyzer.Abstractions;
 
 namespace Pushpay.SemVerAnalyzer.Engine
 {

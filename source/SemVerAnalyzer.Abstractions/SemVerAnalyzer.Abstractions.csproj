@@ -13,6 +13,8 @@
     <RepositoryUrl>https://github.com/pushpay-labs/semantic-versioning-analyzer</RepositoryUrl>
     <PackageTags>semantic-version dotnet-tool semver nuget</PackageTags>
     <LangVersion>8</LangVersion>
+    <RootNamespace>Pushpay.SemVerAnalyzer.Abstractions</RootNamespace>
+    <AssemblyName>Pushpay.SemVerAnalyzer.Abstractions</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

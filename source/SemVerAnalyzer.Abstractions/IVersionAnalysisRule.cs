@@ -1,4 +1,4 @@
-namespace SemVerAnalyzer.Abstractions
+namespace Pushpay.SemVerAnalyzer.Abstractions
 {
 	public interface IVersionAnalysisRule
 	{

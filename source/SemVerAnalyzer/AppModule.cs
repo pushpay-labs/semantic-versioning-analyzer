@@ -1,8 +1,7 @@
 using Autofac;
-
+using Pushpay.SemVerAnalyzer.Abstractions;
 using Pushpay.SemVerAnalyzer.Engine;
 using Pushpay.SemVerAnalyzer.Nuget;
-using SemVerAnalyzer.Abstractions;
 
 namespace Pushpay.SemVerAnalyzer
 {

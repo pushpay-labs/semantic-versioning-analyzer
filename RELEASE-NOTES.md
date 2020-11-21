@@ -1,3 +1,7 @@
+# v1.2.2
+
+Fixed bug regarding automatic package name detection when package name is not specified.
+
 # v1.2.1
 
 Bug fixes:

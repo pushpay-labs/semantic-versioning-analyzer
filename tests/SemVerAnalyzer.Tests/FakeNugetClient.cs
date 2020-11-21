@@ -8,7 +8,7 @@ namespace Pushpay.SemVerAnalyzer.Tests
 {
 	public class FakeNugetClient : INugetClient
 	{
-		public Task<byte[]> GetAssemblyBytesFromPackage(string packageName, List<string> comments)
+		public Task<byte[]> GetAssemblyBytesFromPackage(string packageName, string fileName, List<string> comments)
 		{
 			var bytes = File.ReadAllBytes($"{packageName}.dll");
 			return Task.FromResult(bytes);

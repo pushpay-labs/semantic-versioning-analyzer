@@ -18,26 +18,27 @@ namespace Pushpay.SemVerAnalyzer
 
 		[Option('r', "additional-rules", Required = false, HelpText = "A path to a single assembly or folder of assemblies which contain additional rules.  Overrides `additionalRules` setting in JSON configuration file.")]
 		public string AdditionalRulesPath { get; set; }
+
+		[Option('p', "package-name", HelpText = "If the package name is different than the DLL file name, specify it here.")]
+		public string PackageName { get; set; }
 		
 		public string FullAssemblyPath => Path.GetFullPath(Assembly);
-		public string PackageName { get; set; }
+		public string AssemblyFileName => Path.GetFileNameWithoutExtension(Assembly);
 
 		public string Validate()
 		{
-			var match = Regex.Match(Assembly, @"^(.*(\/|\\))?(?<packageName>.*)\.dll$", RegexOptions.IgnoreCase);
-			if (!match.Success) {
-				return "Cannot extract package name from provided assembly file name";
+			if (string.IsNullOrWhiteSpace(PackageName))
+			{
+				var match = Regex.Match(Assembly, @"^(.*(\/|\\))?(?<packageName>.*)\.dll$", RegexOptions.IgnoreCase);
+				if (!match.Success)
+					return "Cannot extract package name from provided assembly file name";
 			}
 
-			if (!File.Exists(Assembly)) {
+			if (!File.Exists(Assembly))
 				return $"Cannot find assembly file '{Assembly}'";
-			}
 
-			if (!File.Exists(Configuration)) {
+			if (!File.Exists(Configuration))
 				return $"Cannot find assembly file '{Assembly}'";
-			}
-
-			PackageName = match.Groups["packageName"].Value;
 
 			return null;
 		}

@@ -16,28 +16,33 @@ namespace Pushpay.SemVerAnalyzer.Nuget
 			_config = config;
 		}
 
-		public async Task<byte[]> GetAssemblyBytesFromPackage(string packageName, List<string> comments)
+		public async Task<byte[]> GetAssemblyBytesFromPackage(string packageName, string fileName, List<string> comments)
 		{
-
-			try {
+			try
+			{
 				using var client = new HttpClient();
 				using var request = new HttpRequestMessage(HttpMethod.Get, Path.Join(_config.RepositoryUrl, packageName));
 				using var response = await client.SendAsync(request);
-				if (!response.IsSuccessStatusCode) {
-					comments.Add("Error contacting ProGet.  If working outside of the office, please ensure you are on the VPN.");
+				if (!response.IsSuccessStatusCode)
+				{
+					var content = await response.Content.ReadAsStringAsync();
+					comments.Add($"Error retrieving Nuget package:\n{content}");
 					return null;
 				}
 
 				using var archive = new ZipArchive(await response.Content.ReadAsStreamAsync());
-				await using var unzippedEntryStream = archive.Entries.FirstOrDefault(e => e.FullName.EndsWith($"{packageName}.dll"))?.Open();
-				if (unzippedEntryStream == null) {
+				await using var unzippedEntryStream = archive.Entries.FirstOrDefault(e => e.FullName.EndsWith($"{fileName}.dll"))?.Open();
+				if (unzippedEntryStream == null)
+				{
 					comments.Add("Found NuGet package, but could not find DLL within it.");
 					return null;
 				}
 
 				return ReadAllBytes(unzippedEntryStream);
-			} catch (HttpRequestException e) {
-				comments.Add($"Error contacting ProGet.  If working outside of the office, please ensure you are on the VPN. {e.Message}");
+			}
+			catch (HttpRequestException e)
+			{
+				comments.Add($"Error retrieving Nuget package:\n{e.Message}");
 				return null;
 			}
 		}
@@ -47,7 +52,8 @@ namespace Pushpay.SemVerAnalyzer.Nuget
 			var buffer = new byte[1 << 20];
 			using var ms = new MemoryStream();
 			int read;
-			while ((read = input.Read(buffer, 0, buffer.Length)) > 0) {
+			while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+			{
 				ms.Write(buffer, 0, read);
 			}
 

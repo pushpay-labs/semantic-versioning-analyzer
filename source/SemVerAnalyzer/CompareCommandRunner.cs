@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,7 +30,7 @@ namespace Pushpay.SemVerAnalyzer
 			try {
 				localAssembly = AssemblyPublicInterface.Load(command.FullAssemblyPath);
 
-				var bytes = await _nugetClient.GetAssemblyBytesFromPackage(command.PackageName, comments);
+				var bytes = await _nugetClient.GetAssemblyBytesFromPackage(command.PackageName, command.FullAssemblyPath, comments);
 				var onlineAssembly = AssemblyPublicInterface.Load(bytes);
 
 				var result = _analyzer.AnalyzeVersions(localAssembly, onlineAssembly);
@@ -43,9 +44,12 @@ namespace Pushpay.SemVerAnalyzer
 					         "**Please use your best judgment when updating the version.  You know your change better than this check can.**\n\n" +
 					         $"## Summary\n\n" +
 					         $"Actual new version: `{localAssembly.Version}` ({result.ActualBump})\n" +
-					         $"Suggested new version: `{onlineAssembly.Version.GetSuggestedVersion(result.CalculatedBump)}` ({result.CalculatedBump}).\n\n" +
-					         $"## Details\n\n" +
-					         $"- {string.Join("\n- ", comments)}\n";
+					         $"Suggested new version: `{onlineAssembly.Version.GetSuggestedVersion(result.CalculatedBump)}` ({result.CalculatedBump}).\n";
+					if (comments.Any())
+					{
+						report += $"\n## Details\n\n" +
+						          $"- {string.Join("\n- ", comments)}\n";
+					}
 				}
 			} catch (Exception e) {
 				var sb = new StringBuilder();

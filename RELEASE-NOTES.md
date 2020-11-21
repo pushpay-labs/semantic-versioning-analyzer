@@ -1,3 +1,7 @@
+# v1.2.0
+
+Added `-p`/`--package-name` switch to handle cases where the package name is different than the assembly name.
+
 # v1.1.1
 
 Fixed assembly names.  Previous packages will be unlisted from nuget.org.

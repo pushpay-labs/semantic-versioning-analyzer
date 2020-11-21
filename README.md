@@ -45,6 +45,8 @@ The command line options are as follows:
   -r, --additional-rules    A path to a single assembly or folder of assemblies which contain additional
                             rules.  Overrides `additionalRules` setting in JSON configuration file.
 
+  -p, --package-name		If the package name is different than the DLL file name, specify it here.
+
   --help                    Display this help screen.
 
   --version                 Display version information.

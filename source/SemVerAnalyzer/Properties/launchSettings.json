@@ -2,7 +2,7 @@
   "profiles": {
     "SemVerAnalyzer": {
       "commandName": "Project",
-      "commandLineArgs": "-a source/SemVerAnalyzer/bin/Debug/netcoreapp3.1/SemVerAnalyzer.dll -o semver-report.md -c source\\SemVerAnalyzer\\config.json",
+      "commandLineArgs": "-a C:\\projects\\json-everything\\Json.More\\bin\\Release\\netstandard2.0\\Json.More.dll -c C:\\projects\\json-everything\\build\\semver_config.json -p Json.More.Net",
       "workingDirectory": "$(SolutionDir)"
     }
   }

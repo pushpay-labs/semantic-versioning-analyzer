@@ -32,6 +32,7 @@ namespace Pushpay.SemVerAnalyzer
 				var match = Regex.Match(Assembly, @"^(.*(\/|\\))?(?<packageName>.*)\.dll$", RegexOptions.IgnoreCase);
 				if (!match.Success)
 					return "Cannot extract package name from provided assembly file name";
+				PackageName = match.Groups["packageName"].Value;
 			}
 
 			if (!File.Exists(Assembly))

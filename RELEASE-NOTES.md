@@ -1,3 +1,10 @@
+# v1.2.1
+
+Bug fixes:
+
+- not searching for correct assembly file name inside Nuget package.
+- Nuget client errors should be printed.
+
 # v1.2.0
 
 Added `-p`/`--package-name` switch to handle cases where the package name is different than the assembly name.

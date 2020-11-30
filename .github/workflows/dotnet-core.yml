@@ -28,7 +28,7 @@ jobs:
       with:
         name: Unit Test Results
         path: test-results.xml
-        
+
     - name: Create local manifest file
       run: dotnet new tool-manifest
     - name: Install analyzer
@@ -49,4 +49,4 @@ jobs:
       if: always()
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        files: test-results.xml
+        files: '**/*/test-results.xml'

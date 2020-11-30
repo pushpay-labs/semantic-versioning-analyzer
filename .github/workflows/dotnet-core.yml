@@ -27,7 +27,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: Unit Test Results
-        path: test-results.xml
+        path: '**/*/test-results.xml'
 
     - name: Create local manifest file
       run: dotnet new tool-manifest

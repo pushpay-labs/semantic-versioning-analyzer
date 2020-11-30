@@ -11,7 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JUnitTestLogger" Version="1.1.0" />
     <PackageReference Include="JunitXml.TestLogger" Version="2.1.32" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
     <PackageReference Include="PowerAssert" Version="1.0.85" />

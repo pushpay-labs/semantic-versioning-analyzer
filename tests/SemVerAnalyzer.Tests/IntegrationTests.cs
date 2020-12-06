@@ -106,7 +106,7 @@ namespace Pushpay.SemVerAnalyzer.Tests
 		}
 
 		[Fact]
-		public async Task OmitDisclaimer()
+		public async Task OmitDisclaimerTrue()
 		{
 			var command = new CompareCommand {
 				Assembly = "Local.dll",
@@ -117,6 +117,19 @@ namespace Pushpay.SemVerAnalyzer.Tests
 			var report = await _runner.Compare(command);
 
 			PAssert.IsTrue(() => !report.Contains("*This is a sanity check"));
+		}
+
+		[Fact]
+		public async Task OmitDisclaimerFalse()
+		{
+			var command = new CompareCommand {
+				Assembly = "Local.dll",
+				PackageName = "Major"
+			};
+
+			var report = await _runner.Compare(command);
+
+			PAssert.IsTrue(() => report.Contains("*This is a sanity check"));
 		}
 	}
 }

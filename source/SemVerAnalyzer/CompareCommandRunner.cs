@@ -45,14 +45,17 @@ namespace Pushpay.SemVerAnalyzer
 				if (result.ActualBump != result.CalculatedBump)
 				{
 					comments = result.GetAllComments();
-					report = "*This is a sanity check that indicates whether the change is more severe than intended.  " +
-					         "It is not foolproof as not all changes can be detected by analyzing the public interface of an " +
-					         "assembly.  Therefore the results of this check are to be considered as a suggestion.  You may determine " +
-					         "that a particular change warrants a more severe version bump than is suggested by this check.*\n\n" +
-					         "**Please use your best judgment when updating the version.  You know your change better than this check can.**\n\n" +
-					         $"## Summary\n\n" +
-					         $"Actual new version: `{localAssembly.Version}` ({result.ActualBump})\n" +
-					         $"Suggested new version: `{onlineAssembly.Version.GetSuggestedVersion(result.CalculatedBump)}` ({result.CalculatedBump}).\n";
+					if (!command.OmitDisclaimer)
+					{
+						report = "*This is a sanity check that indicates whether the change is more severe than intended.  " +
+						         "It is not foolproof as not all changes can be detected by analyzing the public interface of an " +
+						         "assembly.  Therefore the results of this check are to be considered as a suggestion.  You may determine " +
+						         "that a particular change warrants a more severe version bump than is suggested by this check.*\n\n" +
+						         "**Please use your best judgment when updating the version.  You know your change better than this check can.**\n\n";
+					}
+					report += $"## Summary\n\n" +
+					          $"Actual new version: `{localAssembly.Version}` ({result.ActualBump})\n" +
+					          $"Suggested new version: `{onlineAssembly.Version.GetSuggestedVersion(result.CalculatedBump)}` ({result.CalculatedBump}).\n";
 					if (comments.Any())
 					{
 						report += $"\n## Details\n\n" +

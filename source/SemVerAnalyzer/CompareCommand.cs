@@ -22,7 +22,7 @@ namespace Pushpay.SemVerAnalyzer
 		[Option('p', "package-name", HelpText = "If the package name is different than the DLL file name, specify it here.")]
 		public string PackageName { get; set; }
 
-		[Option]
+		[Option(longName: "omit-disclaimer")]
 		public bool OmitDisclaimer { get; set; }
 		
 		public string FullAssemblyPath => Path.GetFullPath(Assembly);

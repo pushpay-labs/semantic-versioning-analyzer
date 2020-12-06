@@ -1,3 +1,7 @@
+# v1.4.0
+
+Added `--include-header` option.
+
 # v1.3.0
 
 Added `--omit-disclaimer` option.
@@ -48,7 +52,7 @@ Previously the report would just show the actual and calculated bump:
 Now it will also show the actual and suggested version:
 
 > ## Summary
-> 
+>
 > - Actual new version: `1.0.0` (Major)
 > - Suggested new version: `0.2.0` (Minor).
 

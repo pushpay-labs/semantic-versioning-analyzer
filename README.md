@@ -49,6 +49,8 @@ The command line options are as follows:
 
   --omit-disclaimer         Omits the disclaimer paragraph that appears at the top of the output.
 
+  -h, --include-header      Includes a header with the assembly and package at the top of the output.
+
   --help                    Display this help screen.
 
   --version                 Display version information.

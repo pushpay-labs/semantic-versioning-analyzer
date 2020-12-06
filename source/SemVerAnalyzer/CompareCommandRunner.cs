@@ -45,9 +45,13 @@ namespace Pushpay.SemVerAnalyzer
 				if (result.ActualBump != result.CalculatedBump)
 				{
 					comments = result.GetAllComments();
+					if (command.IncludeHeader)
+					{
+						report = $"# {command.Assembly} ( {command.PackageName} )\n\n";
+					}
 					if (!command.OmitDisclaimer)
 					{
-						report = "*This is a sanity check that indicates whether the change is more severe than intended.  " +
+						report += "*This is a sanity check that indicates whether the change is more severe than intended.  " +
 						         "It is not foolproof as not all changes can be detected by analyzing the public interface of an " +
 						         "assembly.  Therefore the results of this check are to be considered as a suggestion.  You may determine " +
 						         "that a particular change warrants a more severe version bump than is suggested by this check.*\n\n" +

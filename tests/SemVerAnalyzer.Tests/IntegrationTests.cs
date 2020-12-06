@@ -131,5 +131,32 @@ namespace Pushpay.SemVerAnalyzer.Tests
 
 			PAssert.IsTrue(() => report.Contains("*This is a sanity check"));
 		}
+
+		[Fact]
+		public async Task IncludeHeaderTrue()
+		{
+			var command = new CompareCommand {
+				Assembly = "Local.dll",
+				PackageName = "Major",
+				IncludeHeader = true
+			};
+
+			var report = await _runner.Compare(command);
+
+			PAssert.IsTrue(() => report.Contains("# Local.dll ( Major )"));
+		}
+
+		[Fact]
+		public async Task IncludeHeaderFalse()
+		{
+			var command = new CompareCommand {
+				Assembly = "Local.dll",
+				PackageName = "Major"
+			};
+
+			var report = await _runner.Compare(command);
+
+			PAssert.IsTrue(() => !report.Contains("# Local.dll ( Major )"));
+		}
 	}
 }

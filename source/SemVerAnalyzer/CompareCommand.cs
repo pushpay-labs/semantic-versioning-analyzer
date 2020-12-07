@@ -24,7 +24,10 @@ namespace Pushpay.SemVerAnalyzer
 
 		[Option("omit-disclaimer", HelpText = "Omits the disclaimer paragraph that appears at the top of the output.")]
 		public bool OmitDisclaimer { get; set; }
-		
+
+		[Option('h', "include-header", HelpText = "Includes a header with the assembly and package at the top of the output.")]
+		public bool IncludeHeader { get; set; }
+
 		public string FullAssemblyPath => Path.GetFullPath(Assembly);
 		public string AssemblyFileName => Path.GetFileNameWithoutExtension(Assembly);
 

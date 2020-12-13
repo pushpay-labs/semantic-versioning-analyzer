@@ -3,7 +3,11 @@ name: .NET Core
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - 'resources/**/*'
   pull_request:
+    paths-ignore:
+      - 'resources/**/*'
 
 jobs:
   build:
@@ -50,3 +54,32 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         files: '**/*/test-results.xml'
+  test-badge:
+    if: ${{ github.ref == 'master' }}
+    needs: test-results
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download Artifacts
+      uses: actions/download-artifact@v2
+      with:
+        path: artifacts
+    - name: Fetch badge
+      run: |
+        TEST_RESULTS_FILE=`find . -name test-results.xml | head -1`
+        TEST_COUNT=`grep -Pio '(?<=tests=")\d+' $TEST_RESULTS_FILE | head -1`
+        FAIL_COUNT=`grep -Pio '(?<=failures=")\d+' $TEST_RESULTS_FILE | head -1`
+        PASS_COUNT=$((TEST_COUNT - $FAIL_COUNT))`
+        if [[ $FAIL_COUNT -eq 0 ]]; then BUILD_STATUS=success; else BUILD_STATUS=critical; fi
+        BADGE_URL="https://img.shields.io/static/v1?label=tests&message=${PASS_COUNT}%20passing%20|%20${FAIL_COUNT}%20failing&color=${BUILD_STATUS}"
+
+        wget $BADGE_URL -o ./resources/test-results.svg
+    - name: Commit badge
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "Add changes" -F ./resources/test-results.svg
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}

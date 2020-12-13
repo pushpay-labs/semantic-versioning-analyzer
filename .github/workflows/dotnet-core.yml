@@ -53,7 +53,7 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         files: '**/*/test-results.xml'
   test-badge:
-    if: ${{ github.ref == 'master' }}
+    if: github.ref == 'ref/head/main'
     needs: test-results
     runs-on: ubuntu-latest
     steps:

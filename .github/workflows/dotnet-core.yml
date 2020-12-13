@@ -1,4 +1,4 @@
-name: .NET Core
+name: Build and Test
 
 on:
   push:
@@ -6,8 +6,6 @@ on:
     paths-ignore:
       - 'resources/**/*'
   pull_request:
-    paths-ignore:
-      - 'resources/**/*'
 
 jobs:
   build:

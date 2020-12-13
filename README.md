@@ -1,3 +1,6 @@
+![build](https://github.com/pushpay-labs/semantic-versioning-analyzer/workflows/Build%20and%20Test/badge.svg)
+![test](./resources/test-results.svg)
+
 <table>
   <tr>
     <th>SemVerAnalyzer</th>

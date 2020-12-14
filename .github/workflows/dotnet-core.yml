@@ -72,6 +72,7 @@ jobs:
         BADGE_URL="https://img.shields.io/static/v1?label=tests&message=${PASS_COUNT}%20passing%20|%20${FAIL_COUNT}%20failing&color=${BUILD_STATUS}"
 
         pwd
+        ls
         curl $BADGE_URL --output ./resources/test-results.svg
     - name: Commit badge
       run: |

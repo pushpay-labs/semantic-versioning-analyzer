@@ -76,7 +76,7 @@ jobs:
           echo "BUILD_STATUS=critical" >> $GITHUB_ENV
         fi
     - name: Create test results badge
-      if: env.BRANCH == 'main'
+      # if: env.BRANCH == 'main'
       uses: schneegans/dynamic-badges-action@v1.0.0
       with:
         auth: ${{ secrets.TEST_BADGE_GIST_KEY }}

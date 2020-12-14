@@ -53,10 +53,11 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         files: '**/*/test-results.xml'
   test-badge:
-    if: github.ref == 'refs/head/main'
     needs: test-results
     runs-on: ubuntu-latest
     steps:
+    - name: Extract Branch Name
+      run: echo "::set-env name=BRANCH::$(echo ${GITHUB_REF##*/})"
     - name: Download Artifacts
       uses: actions/download-artifact@v2
       with:
@@ -77,6 +78,7 @@ jobs:
         git config --local user.name "GitHub Action"
         git commit -m "Add changes" -F ./resources/test-results.svg
     - name: Push changes
+      if: env.BRANCH == 'main'
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}

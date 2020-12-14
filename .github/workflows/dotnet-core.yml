@@ -63,7 +63,7 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         path: artifacts
-    - name: Fetch badge
+    - name: Get badge details
       run: |
         TEST_RESULTS_FILE=`find . -name test-results.xml | head -1`
         TEST_COUNT=`grep -Pio '(?<=tests=")\d+' "${TEST_RESULTS_FILE}" | head -1`
@@ -71,16 +71,13 @@ jobs:
         PASS_COUNT=$((TEST_COUNT - $FAIL_COUNT))
         if [[ $FAIL_COUNT -eq 0 ]]; then BUILD_STATUS=success; else BUILD_STATUS=critical; fi
         BADGE_URL="https://img.shields.io/static/v1?label=tests&message=${PASS_COUNT}%20passing%20|%20${FAIL_COUNT}%20failing&color=${BUILD_STATUS}"
-
-        curl $BADGE_URL --output ./resources/test-results.svg
-    - name: Commit badge
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git commit -m "Add changes" ./resources/test-results.svg
-    - name: Push changes
+    - name: Create test results badge
       if: env.BRANCH == 'main'
-      uses: ad-m/github-push-action@master
+      uses: schneegans/dynamic-badges-action@v1.0.0
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.ref }}
+        auth: ${{ secrets.TEST_BADGE_GIST_KEY }}
+        gistID: dec6df1b4b716c48ea518b97165e7892
+        filename: semver-analyzer-test-results-badge.json
+        label: tests
+        message: ${{ format('{0}%20passing%20|%20{1}%20failing', env.PASS_COUNT, env.FAIL_COUNT) }}
+        color: ${{ env.BUILD_STATUS }}

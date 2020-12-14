@@ -71,7 +71,7 @@ jobs:
         if [[ $FAIL_COUNT -eq 0 ]]; then BUILD_STATUS=success; else BUILD_STATUS=critical; fi
         BADGE_URL="https://img.shields.io/static/v1?label=tests&message=${PASS_COUNT}%20passing%20|%20${FAIL_COUNT}%20failing&color=${BUILD_STATUS}"
 
-        wget $BADGE_URL -o ./resources/test-results.svg
+        curl $BADGE_URL --output ./resources/test-results.svg
     - name: Commit badge
       run: |
         git config --local user.email "action@github.com"

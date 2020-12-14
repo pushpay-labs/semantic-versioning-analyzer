@@ -1,5 +1,5 @@
 ![build](https://github.com/pushpay-labs/semantic-versioning-analyzer/workflows/Build%20and%20Test/badge.svg)
-![test](./resources/test-results.svg)
+![test](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/gregsdennis/dec6df1b4b716c48ea518b97165e7892/raw/semver-analyzer-test-results-badge.json)
 
 <table>
   <tr>

@@ -67,7 +67,7 @@ jobs:
         TEST_RESULTS_FILE=`find . -name test-results.xml | head -1`
         TEST_COUNT=`grep -Pio '(?<=tests=")\d+' "${TEST_RESULTS_FILE}" | head -1`
         FAIL_COUNT=`grep -Pio '(?<=failures=")\d+' "${TEST_RESULTS_FILE}" | head -1`
-        PASS_COUNT=$((TEST_COUNT - $FAIL_COUNT))`
+        PASS_COUNT=$((TEST_COUNT - $FAIL_COUNT))
         if [[ $FAIL_COUNT -eq 0 ]]; then BUILD_STATUS=success; else BUILD_STATUS=critical; fi
         BADGE_URL="https://img.shields.io/static/v1?label=tests&message=${PASS_COUNT}%20passing%20|%20${FAIL_COUNT}%20failing&color=${BUILD_STATUS}"
 

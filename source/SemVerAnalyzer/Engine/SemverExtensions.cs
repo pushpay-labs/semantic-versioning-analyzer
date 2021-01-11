@@ -23,8 +23,8 @@ namespace Pushpay.SemVerAnalyzer.Engine
 			var major = int.Parse(match.Groups["major"].Value);
 			var minor = int.Parse(match.Groups["minor"].Value);
 			var patch = int.Parse(match.Groups["patch"].Value);
-			var prerelease = match.Groups["prerelease"]?.Value;
-			var trailer = match.Groups["trailer"]?.Value;
+			var prerelease = match.Groups["prerelease"].Value;
+			var trailer = match.Groups["trailer"].Value;
 			return new Semver(major, minor, patch, prerelease, trailer);
 		}
 

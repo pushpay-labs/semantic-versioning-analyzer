@@ -3,13 +3,18 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.Serialization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Pushpay.SemVerAnalyzer.Engine;
 
 namespace Pushpay.SemVerAnalyzer.Nuget
 {
 	internal class NugetClient : INugetClient
 	{
 		readonly NugetConfiguration _config;
+		static HttpClient client = new HttpClient();
 
 		public NugetClient(NugetConfiguration config)
 		{
@@ -20,8 +25,28 @@ namespace Pushpay.SemVerAnalyzer.Nuget
 		{
 			try
 			{
-				using var client = new HttpClient();
-				using var request = new HttpRequestMessage(HttpMethod.Get, Path.Join(_config.RepositoryUrl, packageName));
+				var feedMeta = await GetUrlContents<NugetPackageFeed>(Path.Combine(_config.RepositoryUrl, "v3", "index.json"));
+				if (feedMeta.Success == false){
+					comments.Add($"Error retrieving Nuget feed:\n{feedMeta.ErrorMessage}");
+					return null;
+				}
+					
+				var packageBaseAddress = feedMeta.Result.Resources.Single(r => r.Type.StartsWith("PackageBaseAddress")).Id;
+
+
+				var feedVersions = await GetUrlContents<VersionsFeed>(Path.Combine(packageBaseAddress, packageName, "index.json"));
+				if (feedVersions.Success == false){
+					comments.Add($"Error retrieving package versions:\n{feedMeta.ErrorMessage}");
+					return null;
+				}
+
+				var highestVersion = feedVersions.Result.Versions
+					.Select(v => v.ToSemver())
+					.OrderByDescending(v => v)
+					.First()
+					.ToString();
+
+				using var request = new HttpRequestMessage(HttpMethod.Get, Path.Join(packageBaseAddress, packageName, highestVersion, $"{packageName.ToLower()}.{highestVersion}.nupkg"));
 				using var response = await client.SendAsync(request);
 				if (!response.IsSuccessStatusCode)
 				{
@@ -59,5 +84,49 @@ namespace Pushpay.SemVerAnalyzer.Nuget
 
 			return ms.ToArray();
 		}
+
+		async Task<GetUrlContentsResult<T>> GetUrlContents<T>(string requestUri) where T : class {
+			using var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			using var response = await client.SendAsync(request);
+			if (!response.IsSuccessStatusCode)
+			{
+				var content = await response.Content.ReadAsStringAsync();
+				return new GetUrlContentsResult<T> {
+					Success = false,
+					ErrorMessage = content,
+				};
+			}
+
+			var responseContent = await response.Content.ReadAsStringAsync();
+			return new GetUrlContentsResult<T> {
+				Result = JsonSerializer.Deserialize<T>(responseContent),
+				Success = true,
+			};
+		}
+		
+		class GetUrlContentsResult<T> where T : class {
+			public T Result;
+			public bool Success;
+			public string ErrorMessage;
+		}
+
+		class NugetPackageFeed {
+			[JsonPropertyName("resources")]
+			public IEnumerable<Resource> Resources { get; set; }
+		}
+
+		class Resource {
+			[JsonPropertyName("@id")]
+			public string Id { get; set; }
+			[JsonPropertyName("@type")]
+			public string Type { get; set; }
+		}
+
+		class VersionsFeed {
+			[JsonPropertyName("versions")]
+			public IEnumerable<string> Versions { get; set; }
+		}
+
 	}
+
 }

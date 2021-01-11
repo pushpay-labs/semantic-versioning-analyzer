@@ -35,7 +35,7 @@ namespace Pushpay.SemVerAnalyzer.Nuget
 
 
 				var feedVersions = await GetUrlContents<VersionsFeed>(Path.Combine(packageBaseAddress, packageName, "index.json"));
-				if (feedMeta.Success == false){
+				if (feedVersions.Success == false){
 					comments.Add($"Error retrieving package versions:\n{feedMeta.ErrorMessage}");
 					return null;
 				}

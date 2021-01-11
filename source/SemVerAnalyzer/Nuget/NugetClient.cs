@@ -3,7 +3,11 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.Serialization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Pushpay.SemVerAnalyzer.Engine;
 
 namespace Pushpay.SemVerAnalyzer.Nuget
 {
@@ -21,7 +25,32 @@ namespace Pushpay.SemVerAnalyzer.Nuget
 			try
 			{
 				using var client = new HttpClient();
-				using var request = new HttpRequestMessage(HttpMethod.Get, Path.Join(_config.RepositoryUrl, packageName));
+				
+				using var feedRequest = new HttpRequestMessage(HttpMethod.Get, Path.Combine(_config.RepositoryUrl, "v3", "index.json"));
+				using var feedResponse = await client.SendAsync(feedRequest);
+				if (!feedResponse.IsSuccessStatusCode)
+				{
+					var content = await feedResponse.Content.ReadAsStringAsync();
+					comments.Add($"Error retrieving Nuget feed:\n{content}");
+					return null;
+				}
+
+				var feed = JsonSerializer.Deserialize<NugetPackageFeed>(await feedResponse.Content.ReadAsStringAsync());
+				var packageBaseAddress = feed.Resources.Single(r => r.Type.StartsWith("PackageBaseAddress")).Id;
+				
+				using var versionRequest = new HttpRequestMessage(HttpMethod.Get, Path.Combine(packageBaseAddress, packageName, "index.json"));
+				using var versionResponse = await client.SendAsync(versionRequest);
+				if (!versionResponse.IsSuccessStatusCode)
+				{
+					var content = await versionResponse.Content.ReadAsStringAsync();
+					comments.Add($"Error retrieving package versions:\n{content}");
+					return null;
+				}
+
+				var versions = JsonSerializer.Deserialize<VersionsFeed>(await versionResponse.Content.ReadAsStringAsync()).Versions;
+				var highestVersion = versions.OrderByDescending(v => v.MajorVersion()).ThenByDescending(v => v.MinorVersion()).ThenByDescending(v => v.PatchVersion()).First();
+
+				using var request = new HttpRequestMessage(HttpMethod.Get, Path.Join(packageBaseAddress, packageName, highestVersion, $"{packageName.ToLower()}.{highestVersion}.nupkg"));
 				using var response = await client.SendAsync(request);
 				if (!response.IsSuccessStatusCode)
 				{
@@ -59,5 +88,22 @@ namespace Pushpay.SemVerAnalyzer.Nuget
 
 			return ms.ToArray();
 		}
+
+		class NugetPackageFeed {
+			[JsonPropertyName("resources")]
+			public IEnumerable<Resource> Resources { get; set; }
+		}
+		class Resource {
+			[JsonPropertyName("@id")]
+			public string Id { get; set; }
+			[JsonPropertyName("@type")]
+			public string Type { get; set; }
+		}
+		class VersionsFeed {
+			[JsonPropertyName("versions")]
+			public IEnumerable<string> Versions { get; set; }
+		}
+
 	}
+
 }

@@ -42,8 +42,8 @@ namespace Pushpay.SemVerAnalyzer.Nuget
 
 				var highestVersion = feedVersions.Result.Versions
 					.Select(v => v.ToSemver())
-					.OrderBy(v => v)
-					.Last()
+					.OrderByDescending(v => v)
+					.First()
 					.ToString();
 
 				using var request = new HttpRequestMessage(HttpMethod.Get, Path.Join(packageBaseAddress, packageName, highestVersion, $"{packageName.ToLower()}.{highestVersion}.nupkg"));

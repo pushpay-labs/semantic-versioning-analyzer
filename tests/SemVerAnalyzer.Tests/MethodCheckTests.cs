@@ -15,7 +15,6 @@ namespace Pushpay.SemVerAnalyzer.Tests
 
 		class Reference : Base
 		{
-			public new void VirtualMethod(){ }
 		}
 
 		abstract class Base
@@ -29,11 +28,20 @@ namespace Pushpay.SemVerAnalyzer.Tests
 		}
 
 		[Fact]
-		public void Test()
+		public void NewOverride()
 		{
 			PerformFieldCheck<Reference, Local>(
-				"`Local.VirtualMethod(Local)` has been overridden.",
+				"`Local.VirtualMethod(Local)` is a new override.",
 				"`Local.NewMethod(Local)` is new or has been made accessible."
+			);
+		}
+
+		[Fact]
+		public void LostOverride()
+		{
+			PerformFieldCheck<Local, Reference>(
+				"`Local.VirtualMethod(Local)` is no longer overridden.",
+				"`Local.NewMethod(Local)` is no longer present or accessible."
 			);
 		}
 	}

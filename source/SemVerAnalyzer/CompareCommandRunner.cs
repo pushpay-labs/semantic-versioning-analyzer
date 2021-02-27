@@ -50,7 +50,9 @@ namespace Pushpay.SemVerAnalyzer
 					comments = result.GetAllComments();
 					if (_settings.IncludeHeader)
 					{
-						report = $"# {command.AssemblyFileName} ( {command.PackageName} )\n\n";
+						report = command.AssemblyFileName == command.PackageName
+							? $"# {command.AssemblyFileName}\n\n"
+							: $"# {command.AssemblyFileName} ( {command.PackageName} )\n\n";
 					}
 					if (!_settings.OmitDisclaimer)
 					{

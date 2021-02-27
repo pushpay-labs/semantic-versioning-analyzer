@@ -50,5 +50,24 @@ namespace Pushpay.SemVerAnalyzer.Tests
 				.AsImplementedInterfaces()
 				.AsSelf();
 		}
+
+		void ResetOptions()
+		{
+			Settings.AdditionalRulesPath = default;
+			Settings.AssumeChanges = default;
+			Settings.IncludeHeader = default;
+			Settings.OmitDisclaimer = default;
+			Settings.RuleOverrides.Clear();
+		}
+
+		public void ApplyOverrides(CompareCommand command)
+		{
+			ResetOptions();
+
+			Settings.AdditionalRulesPath = command.AdditionalRulesPath ?? Settings.AdditionalRulesPath;
+			Settings.IncludeHeader = command.IncludeHeader ?? Settings.IncludeHeader;
+			Settings.OmitDisclaimer = command.OmitDisclaimer ?? Settings.OmitDisclaimer;
+			Settings.AssumeChanges = command.AssumeChanges ?? Settings.AssumeChanges;
+		}
 	}
 }

@@ -9,14 +9,16 @@ namespace Pushpay.SemVerAnalyzer.Tests
 {
 	public class IntegrationTests : IClassFixture<IntegrationFixture>
 	{
+		readonly IntegrationFixture _integrationFixture;
 		readonly ITestOutputHelper _testOutputHelper;
-		readonly CompareCommandRunner _runner;
+
+		CompareCommandRunner Runner => _integrationFixture.CompareCommandRunner;
 
 		public IntegrationTests(IntegrationFixture integrationFixture,
 		                        ITestOutputHelper testOutputHelper)
 		{
+			_integrationFixture = integrationFixture;
 			_testOutputHelper = testOutputHelper;
-			_runner = integrationFixture.CompareCommandRunner;
 		}
 
 		static readonly string[] _majorChanges = {
@@ -33,7 +35,7 @@ namespace Pushpay.SemVerAnalyzer.Tests
 				PackageName = "Major"
 			};
 
-			var report = await _runner.Compare(command);
+			var report = await Runner.Compare(command);
 			_testOutputHelper.WriteLine(report);
 
 			using (var poly = PAssert.Poly()) {
@@ -58,7 +60,7 @@ namespace Pushpay.SemVerAnalyzer.Tests
 				PackageName = "Minor"
 			};
 
-			var report = await _runner.Compare(command);
+			var report = await Runner.Compare(command);
 			_testOutputHelper.WriteLine(report);
 
 			using (var poly = PAssert.Poly()) {
@@ -81,7 +83,7 @@ namespace Pushpay.SemVerAnalyzer.Tests
 				PackageName = "Patch"
 			};
 
-			var report = await _runner.Compare(command);
+			var report = await Runner.Compare(command);
 			_testOutputHelper.WriteLine(report);
 
 			using (var poly = PAssert.Poly()) {
@@ -100,7 +102,7 @@ namespace Pushpay.SemVerAnalyzer.Tests
 				PackageName = "Local"
 			};
 
-			var report = await _runner.Compare(command);
+			var report = await Runner.Compare(command);
 
 			PAssert.IsTrue(() => report == null);
 		}
@@ -114,7 +116,9 @@ namespace Pushpay.SemVerAnalyzer.Tests
 				OmitDisclaimer = true
 			};
 
-			var report = await _runner.Compare(command);
+			_integrationFixture.ApplyOverrides(command);
+
+			var report = await Runner.Compare(command);
 
 			PAssert.IsTrue(() => !report.Contains("*This is a sanity check"));
 		}
@@ -127,7 +131,9 @@ namespace Pushpay.SemVerAnalyzer.Tests
 				PackageName = "Major"
 			};
 
-			var report = await _runner.Compare(command);
+			_integrationFixture.ApplyOverrides(command);
+
+			var report = await Runner.Compare(command);
 
 			PAssert.IsTrue(() => report.Contains("*This is a sanity check"));
 		}
@@ -141,9 +147,11 @@ namespace Pushpay.SemVerAnalyzer.Tests
 				IncludeHeader = true
 			};
 
-			var report = await _runner.Compare(command);
+			_integrationFixture.ApplyOverrides(command);
 
-			PAssert.IsTrue(() => report.Contains("# Local.dll ( Major )"));
+			var report = await Runner.Compare(command);
+
+			PAssert.IsTrue(() => report.Contains("# Local ( Major )"));
 		}
 
 		[Fact]
@@ -154,9 +162,11 @@ namespace Pushpay.SemVerAnalyzer.Tests
 				PackageName = "Major"
 			};
 
-			var report = await _runner.Compare(command);
+			_integrationFixture.ApplyOverrides(command);
 
-			PAssert.IsTrue(() => !report.Contains("# Local.dll ( Major )"));
+			var report = await Runner.Compare(command);
+
+			PAssert.IsTrue(() => !report.Contains("# Local ( Major )"));
 		}
 	}
 }

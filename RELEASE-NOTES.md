@@ -1,3 +1,12 @@
+# v2.1.0
+
+- Copied some command line options into configuration file.  Command line options still available for overriding configuration.
+- Added `assume-changes` option to force the report to start with a baseline of a Patch change instead of None.
+
+# v2.0.0
+
+Updated interaction with Nuget feed to use v3 API and commands.  Required a config change that would break consumers who didn't also update their config.
+
 # v1.4.0
 
 Added `--include-header` option.

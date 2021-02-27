@@ -56,5 +56,21 @@ namespace Pushpay.SemVerAnalyzer.Assembly
 			return collection.Where(e => e.GetUnderlyingMethodInfo().IsPublic);
 		}
 
+		public static bool IsOverride(this MethodDef method)
+		{
+			if (method.IsNewSlot) return false;
+			if (!method.IsVirtual) return false;
+
+			var type = method.DeclaringType.BaseType as TypeDef;
+
+			while (type != null)
+			{
+				var match = type.Methods.SingleOrDefault(m => MethodSignatureComparer.Instance.Equals(m, method));
+				if (match != null) return true;
+				type = type.BaseType as TypeDef;
+			}
+
+			return false;
+		}
 	}
 }

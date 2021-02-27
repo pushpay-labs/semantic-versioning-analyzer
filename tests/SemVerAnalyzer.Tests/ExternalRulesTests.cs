@@ -14,7 +14,8 @@ namespace Pushpay.SemVerAnalyzer.Tests
 		public ExternalRulesTests(IntegrationFixture integrationFixture,
 			ITestOutputHelper testOutputHelper)
 		{
-			integrationFixture.Builder.RegisterModule(new ExternalRuleModule(integrationFixture.Settings, "AuxiliaryRules.dll"));
+			integrationFixture.Settings.AdditionalRulesPath = "AuxiliaryRules.dll";
+			integrationFixture.Builder.RegisterModule(new ExternalRuleModule(integrationFixture.Settings));
 
 			_testOutputHelper = testOutputHelper;
 			_runner = integrationFixture.CompareCommandRunner;

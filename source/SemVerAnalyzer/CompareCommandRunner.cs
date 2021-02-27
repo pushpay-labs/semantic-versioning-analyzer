@@ -14,12 +14,15 @@ namespace Pushpay.SemVerAnalyzer
 	{
 		readonly INugetClient _nugetClient;
 		readonly IAssemblyVersionAnalyzer _analyzer;
+		readonly AppSettings _settings;
 
 		public CompareCommandRunner(INugetClient nugetClient,
-			IAssemblyVersionAnalyzer analyzer)
+			IAssemblyVersionAnalyzer analyzer,
+			AppSettings settings)
 		{
 			_nugetClient = nugetClient;
 			_analyzer = analyzer;
+			_settings = settings;
 		}
 
 		public async Task<string> Compare(CompareCommand command)
@@ -45,11 +48,11 @@ namespace Pushpay.SemVerAnalyzer
 				if (result.ActualBump != result.CalculatedBump)
 				{
 					comments = result.GetAllComments();
-					if (command.IncludeHeader)
+					if (command.IncludeHeader ?? _settings.IncludeHeader)
 					{
-						report = $"# {command.Assembly} ( {command.PackageName} )\n\n";
+						report = $"# {command.AssemblyFileName} ( {command.PackageName} )\n\n";
 					}
-					if (!command.OmitDisclaimer)
+					if (!command.OmitDisclaimer ?? _settings.OmitDisclaimer)
 					{
 						report += "*This is a sanity check that indicates whether the change is more severe than intended.  " +
 						         "It is not foolproof as not all changes can be detected by analyzing the public interface of an " +

@@ -31,7 +31,10 @@ namespace Pushpay.SemVerAnalyzer.Abstractions
 		public static string GetName(this MethodDef method)
 		{
 			var thisKeyword = method.CustomAttributes.Any(a => a.AttributeType.Name == nameof(ExtensionAttribute)) ? "this " : "";
-			return $"{method.DeclaringType.CSharpName()}.{method.CSharpName()}({thisKeyword}{string.Join(", ", method.Parameters.Select(p => p.Type.TypeName))})";
+			var parameters = string.IsNullOrEmpty(thisKeyword)
+				? method.Parameters.Skip(1).Select(p => p.Type.TypeName)
+				: method.Parameters.Select(p => p.Type.TypeName);
+			return $"{method.DeclaringType.CSharpName()}.{method.CSharpName()}({thisKeyword}{string.Join(", ", parameters)})";
 		}
 
 		static string CSharpName(this MethodDef method, StringBuilder sb = null)

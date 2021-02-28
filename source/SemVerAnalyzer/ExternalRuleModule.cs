@@ -1,38 +1,35 @@
 using System.IO;
 using Autofac;
 using Pushpay.SemVerAnalyzer.Abstractions;
-using Pushpay.SemVerAnalyzer.Engine;
 
 namespace Pushpay.SemVerAnalyzer
 {
 	public class ExternalRuleModule : Module
 	{
 		readonly AppSettings _settings;
-		readonly string _additionalRulesPath;
 
-		public ExternalRuleModule(AppSettings settings, string additionalRulesPath)
+		public ExternalRuleModule(AppSettings settings)
 		{
 			_settings = settings;
-			_additionalRulesPath = additionalRulesPath;
 		}
 
 		protected override void Load(ContainerBuilder builder)
 		{
-			if (string.IsNullOrEmpty(_additionalRulesPath)) return;
+			if (string.IsNullOrEmpty(_settings.AdditionalRulesPath)) return;
 
-			if (Directory.Exists(_additionalRulesPath))
+			if (Directory.Exists(_settings.AdditionalRulesPath))
 			{
 				LoadDirectory(builder);
 			}
-			else if (File.Exists(_additionalRulesPath))
+			else if (File.Exists(_settings.AdditionalRulesPath))
 			{
-				LoadFile(builder, _additionalRulesPath);
+				LoadFile(builder, _settings.AdditionalRulesPath);
 			}
 		}
 
 		void LoadDirectory(ContainerBuilder builder)
 		{
-			var files = Directory.EnumerateFiles(_additionalRulesPath, "*.dll");
+			var files = Directory.EnumerateFiles(_settings.AdditionalRulesPath, "*.dll");
 			foreach (var file in files)
 			{
 				LoadFile(builder, file);

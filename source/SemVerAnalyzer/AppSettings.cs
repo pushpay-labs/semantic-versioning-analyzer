@@ -7,6 +7,9 @@ namespace Pushpay.SemVerAnalyzer
 	{
 		public string AdditionalRulesPath { get; set; }
 		public Dictionary<string, RuleOverrideType> RuleOverrides { get; set; }
+		public bool OmitDisclaimer { get; set; }
+		public bool IncludeHeader { get; set; }
+		public bool AssumeChanges { get; set; }
 
 		public RuleOverrideType GetOverrideType(Type ruleType)
 		{

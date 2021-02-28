@@ -15,8 +15,8 @@ namespace Pushpay.SemVerAnalyzer.Engine.Rules
 				return false;
 			}
 
-			var oMethod = online.GetUnderlyingMethodInfo();
-			var lMethod = local.GetUnderlyingMethodInfo();
+			var oMethod = online.GetUnderlyingMethodDef();
+			var lMethod = local.GetUnderlyingMethodDef();
 
 			return oMethod.IsVirtual && !oMethod.IsFinal &&
 				   lMethod.IsVirtual && lMethod.IsFinal;

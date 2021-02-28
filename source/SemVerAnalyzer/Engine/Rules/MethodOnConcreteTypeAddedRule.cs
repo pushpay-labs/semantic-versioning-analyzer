@@ -1,5 +1,6 @@
 using dnlib.DotNet;
 using Pushpay.SemVerAnalyzer.Abstractions;
+using Pushpay.SemVerAnalyzer.Assembly;
 
 namespace Pushpay.SemVerAnalyzer.Engine.Rules
 {
@@ -11,7 +12,7 @@ namespace Pushpay.SemVerAnalyzer.Engine.Rules
 		{
 			var type = (online ?? local).DeclaringType;
 
-			return !type.IsInterface && online == null && local != null;
+			return !type.IsInterface && online == null && local != null && !local.IsOverride();
 		}
 
 		public string GetMessage(MethodDef info)

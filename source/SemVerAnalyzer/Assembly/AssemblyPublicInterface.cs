@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -28,6 +29,22 @@ namespace Pushpay.SemVerAnalyzer.Assembly
 			var data = File.ReadAllBytes(path);
 
 			return Load(data);
+		}
+
+		internal static AssemblyPublicInterface CreateForTest(params Type[] types)
+		{
+			if (types.Select(t => t.AssemblyQualifiedName).Distinct().Count() != 1)
+				throw new NotSupportedException("This test method assumes that all types are from the same assembly.");
+
+			var api = Load(types.First().Assembly.Location);
+
+			api.Types = api.Types.Join(types,
+					td => td.AssemblyQualifiedName,
+					t => t.AssemblyQualifiedName,
+					(td, t) => td)
+				.ToList();
+
+			return api;
 		}
 
 		static AssemblyPublicInterface BuildAssemblyPublicInterface(ModuleDefMD module)

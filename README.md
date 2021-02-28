@@ -121,6 +121,12 @@ dotnet analyze-semver -a path/to/MyAssembly.dll -o results.txt -c ./config.json
   - `TypeMarkedObsoleteRule`
 - Patch
   - `ReferencesPatchBumpedRule`
+  - `VirtualMethodHasBeenOverriddenRule`
+  - `VirtualPropertyHasBeenOverriddenRule`
+  - `VirtualEventHasBeenOverriddenRule`
+  - `VirtualMethodIsNoLongerOverriddenRule`
+  - `VirtualPropertyIsNoLongerOverriddenRule`
+  - `VirtualEventIsNoLongerOverriddenRule`
 
 ## Custom Rules
 

@@ -9,12 +9,14 @@ namespace Pushpay.SemVerAnalyzer.Tests
 	{
 		class Local : Base
 		{
-			public void NewMethod(){ }
+			public void NewMethod() { }
 			public override void VirtualMethod() { }
+			public void DefaultParam(bool valid = true) { }
 		}
 
 		class Reference : Base
 		{
+			public void DefaultParam(){ }
 		}
 
 		abstract class Base

@@ -24,7 +24,7 @@ namespace Pushpay.SemVerAnalyzer
 		static async Task Compare(CompareCommand command)
 		{
 			var config = BuildConfiguration(command.Configuration);
-			ConfigureServices(config, command.AdditionalRulesPath);
+			ConfigureServices(config, command);
 
 			var validationResult = command.Validate();
 			if (validationResult != null) {
@@ -48,12 +48,15 @@ namespace Pushpay.SemVerAnalyzer
 			return builder.Build();
 		}
 
-		static void ConfigureServices(IConfiguration config, string additionalRulesPath)
+		static void ConfigureServices(IConfiguration config, CompareCommand command)
 		{
 			var builder = new ContainerBuilder();
 
 			var appSettings = config.GetSection("settings").Get<AppSettings>() ??
 			                  new AppSettings {RuleOverrides = new Dictionary<string, RuleOverrideType>()};
+
+			ApplyOverrides(appSettings, command);
+
 			builder.RegisterInstance(appSettings).AsSelf();
 			var nugetConfig = config.GetSection("nuget").Get<NugetConfiguration>();
 			if (nugetConfig?.RepositoryUrl == null)
@@ -64,9 +67,17 @@ namespace Pushpay.SemVerAnalyzer
 			builder.RegisterInstance(nugetConfig).AsSelf();
 
 			builder.RegisterModule(new AppModule(appSettings));
-			builder.RegisterModule(new ExternalRuleModule(appSettings, additionalRulesPath));
+			builder.RegisterModule(new ExternalRuleModule(appSettings));
 
 			_container = builder.Build();
+		}
+
+		static void ApplyOverrides(AppSettings appSettings, CompareCommand command)
+		{
+			appSettings.AdditionalRulesPath = command.AdditionalRulesPath ?? appSettings.AdditionalRulesPath;
+			appSettings.IncludeHeader = command.IncludeHeader ?? appSettings.IncludeHeader;
+			appSettings.OmitDisclaimer = command.OmitDisclaimer ?? appSettings.OmitDisclaimer;
+			appSettings.AssumeChanges = command.AssumeChanges ?? appSettings.AssumeChanges;
 		}
 	}
 }

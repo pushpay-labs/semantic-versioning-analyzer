@@ -40,7 +40,7 @@ namespace Pushpay.SemVerAnalyzer.Assembly
 							   (a, b) => (a, b));
 		}
 
-		public static MethodDef GetUnderlyingMethodInfo(this IMemberDef member)
+		public static MethodDef GetUnderlyingMethodDef(this IMemberDef member)
 		{
 			return member switch {
 				MethodDef method => method,
@@ -53,8 +53,34 @@ namespace Pushpay.SemVerAnalyzer.Assembly
 		static IEnumerable<T> FilterToPublic<T>(this IEnumerable<T> collection)
 			where T : IMemberDef
 		{
-			return collection.Where(e => e.GetUnderlyingMethodInfo().IsPublic);
+			return collection.Where(e => e.GetUnderlyingMethodDef().IsPublic);
 		}
 
+		public static bool IsOverride(this MethodDef method)
+		{
+			if (method.IsNewSlot) return false;
+			if (!method.IsVirtual) return false;
+
+			var type = method.DeclaringType.BaseType as TypeDef;
+
+			while (type != null)
+			{
+				var match = type.Methods.SingleOrDefault(m => MethodSignatureComparer.Instance.Equals(m, method));
+				if (match != null) return true;
+				type = type.BaseType as TypeDef;
+			}
+
+			return false;
+		}
+
+		public static bool IsOverride(this PropertyDef prop)
+		{
+			return prop.GetUnderlyingMethodDef().IsOverride();
+		}
+
+		public static bool IsOverride(this EventDef evt)
+		{
+			return evt.GetUnderlyingMethodDef().IsOverride();
+		}
 	}
 }

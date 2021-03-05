@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Autofac;
 
 using Microsoft.Extensions.Configuration;
-
+using Pushpay.SemVerAnalyzer.Abstractions;
 using Pushpay.SemVerAnalyzer.Engine;
 
 namespace Pushpay.SemVerAnalyzer.Tests
@@ -18,6 +18,8 @@ namespace Pushpay.SemVerAnalyzer.Tests
 
 		public IAssemblyVersionAnalyzer AssemblyVersionAnalyzer => Container.Resolve<IAssemblyVersionAnalyzer>();
 		public CompareCommandRunner CompareCommandRunner => Container.Resolve<CompareCommandRunner>();
+		public IEnumerable<IVersionAnalysisRule> Rules => Container.Resolve<IEnumerable<IVersionAnalysisRule>>();
+		internal IEnumerable<IVersionRuleRunner> RuleRunners => Container.Resolve<IEnumerable<IVersionRuleRunner>>();
 
 		public IntegrationFixture()
 		{
@@ -49,6 +51,25 @@ namespace Pushpay.SemVerAnalyzer.Tests
 			Builder.RegisterType<FakeNugetClient>()
 				.AsImplementedInterfaces()
 				.AsSelf();
+		}
+
+		void ResetOptions()
+		{
+			Settings.AdditionalRulesPath = default;
+			Settings.AssumeChanges = default;
+			Settings.IncludeHeader = default;
+			Settings.OmitDisclaimer = default;
+			Settings.RuleOverrides.Clear();
+		}
+
+		public void ApplyOverrides(CompareCommand command)
+		{
+			ResetOptions();
+
+			Settings.AdditionalRulesPath = command.AdditionalRulesPath ?? Settings.AdditionalRulesPath;
+			Settings.IncludeHeader = command.IncludeHeader ?? Settings.IncludeHeader;
+			Settings.OmitDisclaimer = command.OmitDisclaimer ?? Settings.OmitDisclaimer;
+			Settings.AssumeChanges = command.AssumeChanges ?? Settings.AssumeChanges;
 		}
 	}
 }

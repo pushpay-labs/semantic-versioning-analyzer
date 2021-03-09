@@ -52,8 +52,7 @@ namespace Pushpay.SemVerAnalyzer
 		{
 			var builder = new ContainerBuilder();
 
-			var appSettings = config.GetSection("settings").Get<AppSettings>() ??
-			                  new AppSettings {RuleOverrides = new Dictionary<string, RuleOverrideType>()};
+			var appSettings = config.GetSection("settings").Get<AppSettings>() ?? new AppSettings();
 
 			ApplyOverrides(appSettings, command);
 

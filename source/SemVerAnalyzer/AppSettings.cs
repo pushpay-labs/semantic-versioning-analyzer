@@ -5,8 +5,15 @@ namespace Pushpay.SemVerAnalyzer
 {
 	public class AppSettings
 	{
+		Dictionary<string, RuleOverrideType> _ruleOverrides;
+
+		public Dictionary<string, RuleOverrideType> RuleOverrides
+		{
+			get => _ruleOverrides ??= new Dictionary<string, RuleOverrideType>();
+			set => _ruleOverrides = value;
+		}
+
 		public string AdditionalRulesPath { get; set; }
-		public Dictionary<string, RuleOverrideType> RuleOverrides { get; set; }
 		public bool OmitDisclaimer { get; set; }
 		public bool IncludeHeader { get; set; }
 		public bool AssumeChanges { get; set; }

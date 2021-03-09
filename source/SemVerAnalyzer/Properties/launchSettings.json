@@ -2,7 +2,7 @@
   "profiles": {
     "SemVerAnalyzer": {
       "commandName": "Project",
-      "commandLineArgs": "-a C:\\projects\\json-everything\\JsonPath\\bin\\Release\\netstandard2.1\\JsonPath.Net.dll -c C:\\projects\\json-everything\\build\\semver_config.json",
+      "commandLineArgs": "-a C:\\projects\\json-everything\\JsonPath\\bin\\Release\\netstandard2.1\\JsonPath.Net.dll -c C:\\projects\\json-everything\\.github\\semver_config.json",
       "workingDirectory": "$(SolutionDir)"
     }
   }

@@ -1,3 +1,7 @@
+# v2.1.1
+
+#50 - Fixed NRE when options are specified in the config file.
+
 # v2.1.0
 
 - Copied some command line options into configuration file.  Command line options still available for overriding configuration.

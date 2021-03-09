@@ -1,5 +1,8 @@
 {
 	"settings": {
-		"ruleOverrides": {}
+		"ruleOverrides": {},
+		"includeHeader": true,
+		"assumeChanges": true,
+		"omitDisclaimer": true 
 	}
 }

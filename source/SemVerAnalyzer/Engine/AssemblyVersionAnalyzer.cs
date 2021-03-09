@@ -81,7 +81,9 @@ namespace Pushpay.SemVerAnalyzer.Engine
 
 		VersionBumpType AnalyzeInterfaces(AssemblyPublicInterface online, AssemblyPublicInterface local, List<Change> comments)
 		{
-			var overallBump = VersionBumpType.None;
+			var overallBump = _settings.AssumeChanges
+				? VersionBumpType.Patch
+				: VersionBumpType.None;
 
 			var references = online.References.FullOuterJoin(local.References,
 															 o => o.Name,

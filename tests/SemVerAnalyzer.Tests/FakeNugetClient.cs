@@ -8,8 +8,21 @@ namespace Pushpay.SemVerAnalyzer.Tests
 {
 	public class FakeNugetClient : INugetClient
 	{
+		readonly AppSettings _settings;
+
+		public FakeNugetClient(AppSettings settings)
+		{
+			_settings = settings;
+		}
+
 		public Task<byte[]> GetAssemblyBytesFromPackage(string packageName, string fileName, List<string> comments)
 		{
+			if (_settings.Framework == "net5.0")
+			{
+				comments.Add("you will find nothing for .net 5");
+				return null;
+			}
+
 			var bytes = File.ReadAllBytes($"{packageName}.dll");
 			return Task.FromResult(bytes);
 		}

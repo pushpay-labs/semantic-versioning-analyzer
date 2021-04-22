@@ -77,6 +77,7 @@ namespace Pushpay.SemVerAnalyzer
 			appSettings.IncludeHeader = command.IncludeHeader ?? appSettings.IncludeHeader;
 			appSettings.OmitDisclaimer = command.OmitDisclaimer ?? appSettings.OmitDisclaimer;
 			appSettings.AssumeChanges = command.AssumeChanges ?? appSettings.AssumeChanges;
+			appSettings.Framework = command.Framework ?? appSettings.Framework;
 		}
 	}
 }

@@ -3,7 +3,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net.Http;
-using System.Runtime.Serialization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -13,12 +12,14 @@ namespace Pushpay.SemVerAnalyzer.Nuget
 {
 	internal class NugetClient : INugetClient
 	{
+		static readonly HttpClient client = new HttpClient();
 		readonly NugetConfiguration _config;
-		static HttpClient client = new HttpClient();
+		readonly AppSettings _settings;
 
-		public NugetClient(NugetConfiguration config)
+		public NugetClient(NugetConfiguration config, AppSettings settings)
 		{
 			_config = config;
+			_settings = settings;
 		}
 
 		public async Task<byte[]> GetAssemblyBytesFromPackage(string packageName, string fileName, List<string> comments)
@@ -56,7 +57,10 @@ namespace Pushpay.SemVerAnalyzer.Nuget
 				}
 
 				using var archive = new ZipArchive(await response.Content.ReadAsStreamAsync());
-				await using var unzippedEntryStream = archive.Entries.FirstOrDefault(e => e.FullName.EndsWith($"{fileName}.dll"))?.Open();
+				ZipArchiveEntry entry = string.IsNullOrEmpty(_settings.Framework)
+					? archive.Entries.FirstOrDefault(e => e.FullName.EndsWith($"{fileName}.dll"))
+					: archive.Entries.FirstOrDefault(e => e.FullName.Contains(_settings.Framework) && e.FullName.EndsWith($"{fileName}.dll"));
+				await using var unzippedEntryStream = entry?.Open();
 				if (unzippedEntryStream == null)
 				{
 					comments.Add("Found NuGet package, but could not find DLL within it.");

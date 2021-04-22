@@ -1,12 +1,16 @@
+# v2.2.0
+
+[#52](https://github.com/pushpay-labs/semantic-versioning-analyzer/issues/52)
+
 # v2.1.1
 
-#50 - Fixed NRE when options are specified in the config file.
+[#50](https://github.com/pushpay-labs/semantic-versioning-analyzer/issues/50) - Fixed NRE when options are specified in the config file.
 
 # v2.1.0
 
 - Copied some command line options into configuration file.  Command line options still available for overriding configuration.
 - Added `assume-changes` option to force the report to start with a baseline of a Patch change instead of None.
-- #45 - Added new rules to handle method overrides.
+- [#45](https://github.com/pushpay-labs/semantic-versioning-analyzer/issues/45) - Added new rules to handle method overrides.
 
 # v2.0.0
 

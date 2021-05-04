@@ -168,5 +168,21 @@ namespace Pushpay.SemVerAnalyzer.Tests
 
 			PAssert.IsTrue(() => !report.Contains("# Local ( Major )"));
 		}
+
+		[Fact]
+		public async Task DotNet5IsNotFound()
+		{
+			var command = new CompareCommand {
+				Assembly = "Local.dll",
+				PackageName = "Major",
+				Framework = "net5.0"
+			};
+
+			_integrationFixture.ApplyOverrides(command);
+
+			var report = await Runner.Compare(command);
+
+			PAssert.IsTrue(() => !report.Contains("you will find nothing for .net 5"));
+		}
 	}
 }

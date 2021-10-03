@@ -15,7 +15,7 @@ namespace Pushpay.SemVerAnalyzer.Tests
 			_settings = settings;
 		}
 
-		public Task<byte[]> GetAssemblyBytesFromPackage(string packageName, string fileName, List<string> comments)
+		public Task<byte[]> GetAssemblyBytesFromPackage(string packageName, string fileName, string framework, List<string> comments)
 		{
 			if (_settings.Framework == "net5.0")
 			{

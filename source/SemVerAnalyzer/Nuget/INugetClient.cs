@@ -5,6 +5,6 @@ namespace Pushpay.SemVerAnalyzer.Nuget
 {
 	public interface INugetClient
 	{
-		Task<byte[]> GetAssemblyBytesFromPackage(string packageName, string fileName, List<string> comments);
+		Task<byte[]> GetAssemblyBytesFromPackage(string packageName, string fileName, string framework, List<string> comments);
 	}
 }

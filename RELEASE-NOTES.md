@@ -1,6 +1,6 @@
 # v2.3.0
 
-[#52](https://github.com/pushpay-labs/semantic-versioning-analyzer/issues/54) - Automatically detect which target framework to compare.
+[#54](https://github.com/pushpay-labs/semantic-versioning-analyzer/issues/54) - Automatically detect which target framework to compare.
 
 # v2.2.0
 

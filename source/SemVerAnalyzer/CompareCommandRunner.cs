@@ -34,7 +34,7 @@ namespace Pushpay.SemVerAnalyzer
 			{
 				localAssembly = AssemblyPublicInterface.Load(command.FullAssemblyPath);
 
-				var bytes = await _nugetClient.GetAssemblyBytesFromPackage(command.PackageName, command.AssemblyFileName, comments);
+				var bytes = await _nugetClient.GetAssemblyBytesFromPackage(command.PackageName, command.AssemblyFileName, localAssembly.Framework, comments);
 				if (bytes == null)
 				{
 					return $"An error has current processing your request:\n\n" +

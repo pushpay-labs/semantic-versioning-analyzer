@@ -22,7 +22,7 @@ namespace Pushpay.SemVerAnalyzer.Nuget
 			_settings = settings;
 		}
 
-		public async Task<byte[]> GetAssemblyBytesFromPackage(string packageName, string fileName, List<string> comments)
+		public async Task<byte[]> GetAssemblyBytesFromPackage(string packageName, string fileName, string framework, List<string> comments)
 		{
 			try
 			{
@@ -56,9 +56,13 @@ namespace Pushpay.SemVerAnalyzer.Nuget
 					return null;
 				}
 
+				var frameworkNickname = GetFrameworkNickName(framework);
 				using var archive = new ZipArchive(await response.Content.ReadAsStreamAsync());
 				ZipArchiveEntry entry = string.IsNullOrEmpty(_settings.Framework)
-					? archive.Entries.FirstOrDefault(e => e.FullName.EndsWith($"{fileName}.dll"))
+					? framework == null
+						? archive.Entries.FirstOrDefault(e => e.FullName.EndsWith($"{fileName}.dll"))
+						: archive.Entries.FirstOrDefault(e => e.FullName.Contains(frameworkNickname) && e.FullName.EndsWith($"{fileName}.dll")) ??
+						  archive.Entries.FirstOrDefault(e => e.FullName.EndsWith($"{fileName}.dll"))
 					: archive.Entries.FirstOrDefault(e => e.FullName.Contains(_settings.Framework) && e.FullName.EndsWith($"{fileName}.dll"));
 				await using var unzippedEntryStream = entry?.Open();
 				if (unzippedEntryStream == null)
@@ -74,6 +78,24 @@ namespace Pushpay.SemVerAnalyzer.Nuget
 				comments.Add($"Error retrieving Nuget package:\n{e.Message}");
 				return null;
 			}
+		}
+
+		// source strings following format from https://docs.microsoft.com/en-us/dotnet/api/system.runtime.versioning.targetframeworkattribute?view=net-5.0
+		// target strings from https://docs.microsoft.com/en-us/dotnet/standard/frameworks
+		// only including most common
+		static string GetFrameworkNickName(string framework)
+		{
+			var parts = framework.Split(",Version=v");
+			var major = int.Parse(parts[1].Split(".")[0]);		  
+			return parts[0] switch
+				{
+					".NETFramework" => "net" + parts[1].Replace(".",""),
+					".NETStandard" => "netstandard" + parts[1],
+					".NETCoreApp" => major < 4 
+						? "netcoreapp" + parts[1]
+						: "net" + parts[1],
+					_ => null
+				};
 		}
 
 		static byte[] ReadAllBytes(Stream input)

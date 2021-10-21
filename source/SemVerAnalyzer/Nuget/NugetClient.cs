@@ -83,47 +83,20 @@ namespace Pushpay.SemVerAnalyzer.Nuget
 		// source strings following format from https://docs.microsoft.com/en-us/dotnet/api/system.runtime.versioning.targetframeworkattribute?view=net-5.0
 		// target strings from https://docs.microsoft.com/en-us/dotnet/standard/frameworks
 		// only including most common
-		static string GetFrameworkNickName(string framework) =>
-			framework switch
-			{
-				".NETFramework,Version=v1.1" => "net11",
-				".NETFramework,Version=v2.0" => "net20",
-				".NETFramework,Version=v3.5" => "net35",
-				".NETFramework,Version=v4.0" => "net40",
-				".NETFramework,Version=v4.0.3" => "net403",
-				".NETFramework,Version=v4.5" => "net45",
-				".NETFramework,Version=v4.5.1" => "net451",
-				".NETFramework,Version=v4.5.2" => "net452",
-				".NETFramework,Version=v4.6" => "net46",
-				".NETFramework,Version=v4.6.1" => "net461",
-				".NETFramework,Version=v4.6.2" => "net462",
-				".NETFramework,Version=v4.7" => "net47",
-				".NETFramework,Version=v4.7.1" => "net471",
-				".NETFramework,Version=v4.7.2" => "net472",
-				".NETFramework,Version=v4.8" => "net48",
-
-				".NETStandard,Version=v1.0" => "netstandard1.0",
-				".NETStandard,Version=v1.1" => "netstandard1.1",
-				".NETStandard,Version=v1.2" => "netstandard1.2",
-				".NETStandard,Version=v1.3" => "netstandard1.3",
-				".NETStandard,Version=v1.4" => "netstandard1.4",
-				".NETStandard,Version=v1.5" => "netstandard1.5",
-				".NETStandard,Version=v1.6" => "netstandard1.6",
-				".NETStandard,Version=v2.0" => "netstandard2.0",
-				".NETStandard,Version=v2.1" => "netstandard2.1",
-
-				".NETCoreApp,Version=v1.0" => "netcoreapp1.0",
-				".NETCoreApp,Version=v1.1" => "netcoreapp1.1",
-				".NETCoreApp,Version=v2.0" => "netcoreapp2.0",
-				".NETCoreApp,Version=v2.1" => "netcoreapp2.1",
-				".NETCoreApp,Version=v2.2" => "netcoreapp2.2",
-				".NETCoreApp,Version=v3.0" => "netcoreapp3.0",
-				".NETCoreApp,Version=v3.1" => "netcoreapp3.1",
-				".NETCoreApp,Version=v5.0" => "net5.0",
-				".NETCoreApp,Version=v6.0" => "net6.0",
-
-				_ => null
-			};
+		static string GetFrameworkNickName(string framework)
+		{
+			var parts = framework.Split(",Version=v");
+			var major = int.Parse(parts[1].Split(".")[0]);		  
+			return parts[0] switch
+				{
+					".NETFramework" => "net" + parts[1].Replace(".",""),
+					".NETStandard" => "netstandard" + parts[1],
+					".NETCoreApp" => major < 4 
+						? "netcoreapp" + parts[1]
+						: "net" + parts[1],
+					_ => null
+				};
+		}
 
 		static byte[] ReadAllBytes(Stream input)
 		{

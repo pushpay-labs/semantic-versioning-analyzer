@@ -79,7 +79,7 @@ jobs:
       uses: schneegans/dynamic-badges-action@v1.0.0
       with:
         auth: ${{ secrets.TEST_BADGE_GIST_KEY }}
-        gistID: dec6df1b4b716c48ea518b97165e7892
+        gistID: db35a837ca2f0e463fa0fcf6160a5659
         filename: semver-analyzer-test-results-badge.json
         label: tests
         message: ${{ format('{0} passing | {1} failing', env.PASS_COUNT, env.FAIL_COUNT) }}

@@ -9,12 +9,11 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-	  strategy:
+    strategy:
       matrix:
         dotnet: [ '6.0.x', '8.0.x' ]
-		name: Dotnet ${{ matrix.dotnet }} build
+    name: Dotnet ${{ matrix.dotnet }} build
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET Core

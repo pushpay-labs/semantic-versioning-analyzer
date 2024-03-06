@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="dnlib" Version="3.3.2" />
+    <PackageReference Include="dnlib" Version="4.4.0" />
   </ItemGroup>
 
 </Project>

@@ -15,7 +15,7 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 8.0.2
+          dotnet-version: 8.0.201
       # Publish
       - name: publish tool on version change
         id: publish_tool
@@ -23,16 +23,16 @@ jobs:
         with:
           # Filepath of the project to be packaged, relative to root of repository
           PROJECT_FILE_PATH: source/SemVerAnalyzer/SemVerAnalyzer.csproj
-          
+
           # NuGet package id, used for version detection & defaults to project name
           # PACKAGE_NAME: Core
-          
+
           # Filepath with version info, relative to root of repository & defaults to PROJECT_FILE_PATH
           # VERSION_FILE_PATH: Directory.Build.props
 
           # Regex pattern to extract version info in a capturing group
           # VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
-          
+
           # Useful with external providers like Nerdbank.GitVersioning, ignores VERSION_FILE_PATH & VERSION_REGEX
           # VERSION_STATIC: 1.0.0
 
@@ -57,4 +57,3 @@ jobs:
           # Uses same set of options as from above
           PROJECT_FILE_PATH: source/SemVerAnalyzer.Abstractions/SemVerAnalyzer.Abstractions.csproj
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          

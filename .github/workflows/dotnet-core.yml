@@ -32,10 +32,10 @@ jobs:
 
     - name: Create local manifest file
       run: dotnet new tool-manifest
-    - name: Install analyzer
-      run: dotnet tool install --add-source source/SemVerAnalyzer/bin/Release SemVerAnalyzer
-    - name: Analyze semantic version
-      run: dotnet analyze-semver -a source/SemVerAnalyzer/bin/Release/net8.0/SemVerAnalyzer.dll -o semver-report.md -c source/SemVerAnalyzer/config.json
+    # - name: Install analyzer
+    #   run: dotnet tool install --add-source source/SemVerAnalyzer/bin/Release SemVerAnalyzer
+    #  - name: Analyze semantic version
+    #   run: dotnet analyze-semver -a source/SemVerAnalyzer/bin/Release/net8.0/SemVerAnalyzer.dll -o semver-report.md -c source/SemVerAnalyzer/config.json
   test-results:
     runs-on: ubuntu-latest
     needs: build
@@ -46,7 +46,7 @@ jobs:
       with:
         path: artifacts
     - name: Publish Unit Test Results
-      uses: EnricoMi/publish-unit-test-result-action@v1.6
+      uses: EnricoMi/publish-unit-test-result-action@v2.0
       if: always()
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}

@@ -2,7 +2,9 @@
 name: publish to nuget
 on:
   push:
-    paths: 'source/**'
+    paths:
+      - 'source/**'
+      - '.github/**'
     branches:
       - main # Default release branch
 

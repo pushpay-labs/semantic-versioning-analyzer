@@ -5,7 +5,6 @@ on:
   push:
     paths:
       - 'source/**'
-      - '.github/**'
     branches:
       - main # Default release branch
 

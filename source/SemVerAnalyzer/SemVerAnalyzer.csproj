@@ -17,6 +17,9 @@
     <PackageIcon>PushpayLogo.png</PackageIcon>
     <RepositoryUrl>https://github.com/pushpay-labs/semantic-versioning-analyzer</RepositoryUrl>
     <PackageTags>semantic-version dotnet-tool semver nuget</PackageTags>
+    <Description>Analyse and recommend an appropriate semver update for a package change</Description>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
@@ -37,6 +40,10 @@
       <PackagePath></PackagePath>
     </None>
     <None Include="..\..\PushpayLogo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\README.md">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>

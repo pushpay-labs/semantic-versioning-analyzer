@@ -1,26 +1,10 @@
 ![build](https://github.com/pushpay-labs/semantic-versioning-analyzer/workflows/Build%20and%20Test/badge.svg)
 ![test](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/katemelkova/db35a837ca2f0e463fa0fcf6160a5659/raw/semver-analyzer-test-results-badge.json)
 
-<table>
-  <tr>
-    <th>SemVerAnalyzer</th>
-    <th>SemVerAnalyzer.Abstractions</th>
-  </tr>
-  <tr>
-    <td>
-      <a href="https://www.nuget.org/packages/SemVerAnalyzer/">
-        <img alt="NuGet version" src="https://img.shields.io/nuget/v/SemVerAnalyzer.svg?svg=true"></img><br>
-        <img alt="NuGet version" src="https://img.shields.io/nuget/dt/SemVerAnalyzer.svg?svg=true"></img>
-      </a>
-    </td>
-    <td>
-      <a href="https://www.nuget.org/packages/SemVerAnalyzer.Abstractions/">
-        <img alt="NuGet version" src="https://img.shields.io/nuget/v/SemVerAnalyzer.Abstractions.svg?svg=true"></img><br>
-        <img alt="NuGet version" src="https://img.shields.io/nuget/dt/SemVerAnalyzer.Abstractions.svg?svg=true"></img>
-      </a>
-    </td>
-  </tr>
-</table>
+| SemVerAnalyzer | SemVerAnalyzer.Abstractions |
+| --- | --- |
+| ![Nuget Version](https://img.shields.io/nuget/v/SemVerAnalyzer.svg?svg=true) | ![Nuget Version](https://img.shields.io/nuget/v/SemVerAnalyzer.Abstractions.svg?svg=true) |
+| ![Nuget Download Count](https://img.shields.io/nuget/dt/SemVerAnalyzer.svg?svg=true) | ![Nuget Download Count](https://img.shields.io/nuget/dt/SemVerAnalyzer.Abstractions.svg?svg=true) |
 
 # Semantic Versioning Analyzer
 
@@ -38,7 +22,7 @@ dotnet tool install SemVerAnalyzer
 
 The command line options are as follows:
 
-```
+``` sh
   -a, --assembly            Required. The built assembly to test.
 
   -o, --outputPath          The output file path for the report.

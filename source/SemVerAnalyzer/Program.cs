@@ -58,9 +58,9 @@ namespace Pushpay.SemVerAnalyzer
 
 			builder.RegisterInstance(appSettings).AsSelf();
 			var nugetConfig = config.GetSection("nuget").Get<NugetConfiguration>();
-			if (nugetConfig?.RepositoryUrl == null)
+			if (nugetConfig?.PackageSource == null && nugetConfig?.RepositoryUrl == null)
 			{
-				Console.WriteLine("Nuget repository missing from configuration.");
+				Console.WriteLine("NuGet package source or repository url is missing from configuration.");
 				Environment.Exit(1);
 			}
 			builder.RegisterInstance(nugetConfig).AsSelf();

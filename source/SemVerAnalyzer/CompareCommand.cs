@@ -31,6 +31,9 @@ namespace Pushpay.SemVerAnalyzer
 		[Option("assume-changes", HelpText = "Assumes that something changed, making Patch the lowest bump rather than None. Default is false.")]
 		public bool? AssumeChanges { get; set; }
 
+		[Option("show-changes", HelpText = "Show all changes, even if the version is as expected. Default is false.")]
+		public bool? ShowChanges { get; set; }
+
 		[Option('f', "framework", Required = false, HelpText = "Indicates the framework from the Nuget package to use as a comparison.")]
 		public string Framework { get; set; }
 

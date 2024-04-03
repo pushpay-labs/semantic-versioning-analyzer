@@ -45,7 +45,7 @@ namespace Pushpay.SemVerAnalyzer
 
 				var result = _analyzer.AnalyzeVersions(localAssembly, onlineAssembly);
 
-				if (result.ActualBump != result.CalculatedBump)
+				if (_settings.ShowChanges || result.ActualBump != result.CalculatedBump)
 				{
 					comments = result.GetAllComments();
 					if (_settings.IncludeHeader)

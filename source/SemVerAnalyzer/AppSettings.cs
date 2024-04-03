@@ -17,6 +17,7 @@ namespace Pushpay.SemVerAnalyzer
 		public bool OmitDisclaimer { get; set; }
 		public bool IncludeHeader { get; set; }
 		public bool AssumeChanges { get; set; }
+		public bool ShowChanges { get; set; }
 		public string Framework { get; set; }
 
 		public RuleOverrideType GetOverrideType(Type ruleType)

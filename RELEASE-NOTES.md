@@ -1,3 +1,7 @@
+# v4.0.0
+
+[#65](https://github.com/pushpay-labs/semantic-versioning-analyzer/issues/65) - Add support for package sources and add show-changes
+
 # v3.0.0
 
 [#59](https://github.com/pushpay-labs/semantic-versioning-analyzer/issues/59) - Target `.net6` and `.net8` instead for `netcoreapp3.1`

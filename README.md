@@ -29,14 +29,20 @@ The command line options are as follows:
 
   -c, --config              Required. Path to the configuration file.
 
-  -r, --additional-rules    A path to a single assembly or folder of assemblies which contain additional
-                            rules.  Overrides `additionalRules` setting in JSON configuration file.
+  -r, --additional-rules    A path to a single assembly or folder of assemblies which contain additional rules.
 
   -p, --package-name        If the package name is different than the DLL file name, specify it here.
 
   --omit-disclaimer         Omits the disclaimer paragraph that appears at the top of the output.
 
   -h, --include-header      Includes a header with the assembly and package at the top of the output.
+
+  --assume-changes          Assumes that something changed, making Patch the lowest bump rather than None. Default is
+                            false.
+
+  --show-changes            Show all changes, even if the version is as expected. Default is false.
+
+  -f, --framework           Indicates the framework from the Nuget package to use as a comparison.
 
   --help                    Display this help screen.
 
@@ -54,7 +60,8 @@ dotnet analyze-semver -a path/to/MyAssembly.dll -o results.txt -c ./config.json
 - `settings`
   - `ruleOverrides` - Provides overrides for individual rules (see below).
 - `nuget`
-  - `repositoryUrl` - The URL to the Nuget feed where the existing assembly is published.
+  - `repositoryUrl` - The URL to the Nuget feed where the existing assembly is published. Mutually exclusive with `packageSource`.
+  - `packageSource` - The name of the Nuget package source where the existing assembly is published. Mutually exclusive with `repositoryUrl`.
 
 ## Built-in Rules
 

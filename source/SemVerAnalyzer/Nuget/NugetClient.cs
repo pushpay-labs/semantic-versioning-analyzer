@@ -34,7 +34,7 @@ namespace Pushpay.SemVerAnalyzer.Nuget
 			{
 				var packageSource = _config.PackageSource != null
 					? SettingsUtility.GetEnabledSources(nugetSettings).FirstOrDefault(s => s.Name == _config.PackageSource)
-					: new PackageSource(new Uri(new Uri(_config.RepositoryUrl), "v3/index.json").AbsoluteUri);
+					: new PackageSource(new Uri(Path.Combine(_config.RepositoryUrl, "v3", "index.json")).AbsoluteUri);
 				if (packageSource == null){
 					comments.Add($"The NuGet source '{_config.PackageSource}' was not found.");
 					return null;

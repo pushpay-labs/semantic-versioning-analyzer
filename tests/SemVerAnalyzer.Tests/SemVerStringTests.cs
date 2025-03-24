@@ -48,5 +48,23 @@ namespace Pushpay.SemVerAnalyzer.Tests
 		{
 			PAssert.IsTrue(() => "2.3.4".GetSuggestedVersion(VersionBumpType.None) == "2.3.4");
 		}
+
+		[Fact]
+		public void SupportsTrailer()
+		{
+			PAssert.IsTrue(() => "2.3.4.0".ToSemver() != null);
+		}
+
+		[Fact]
+		public void SupportsComplexPreRelease()
+		{
+			PAssert.IsTrue(() => "2.3.4-ci.1".ToSemver() != null);
+		}
+
+		[Fact]
+		public void SupportsMetadata()
+		{
+			PAssert.IsTrue(() => "2.3.4-loc.debug+1af4d630".ToSemver() != null);
+		}
 	}
 }

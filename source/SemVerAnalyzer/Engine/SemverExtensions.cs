@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using NuGet.Versioning;
 using Pushpay.SemVerAnalyzer.Abstractions;
 
 namespace Pushpay.SemVerAnalyzer.Engine
@@ -16,14 +17,23 @@ namespace Pushpay.SemVerAnalyzer.Engine
 
 		public static string GetSuggestedVersion(this string version, VersionBumpType bump) => version.ToSemver().GetSuggestedVersionAfterBump(bump);
 
-		public static Semver ToSemver(this string version){
+		public static Semver ToSemver(this string version)
+		{
+			string prerelease;
+			if (SemanticVersion.TryParse(version, out var result))
+			{
+				prerelease = result.IsPrerelease ? '-' + string.Join('.', result.ReleaseLabels) : string.Empty;
+				return new Semver(result.Major, result.Minor, result.Patch, prerelease, string.Empty);
+			}
+
+			// This is kept to support trailers which are not part of SemVer2:
 			var match = _versionFormat.Match(version);
 			if (!match.Success) throw new FormatException("Not a version");
 			
 			var major = int.Parse(match.Groups["major"].Value);
 			var minor = int.Parse(match.Groups["minor"].Value);
 			var patch = int.Parse(match.Groups["patch"].Value);
-			var prerelease = match.Groups["prerelease"].Value;
+			prerelease = match.Groups["prerelease"].Value;
 			var trailer = match.Groups["trailer"].Value;
 			return new Semver(major, minor, patch, prerelease, trailer);
 		}
